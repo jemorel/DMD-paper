@@ -1,0 +1,10 @@
+*.aux
+*.syntec
+*.pdf
+*.log
+*.toc
+*.bak
+*.gz
+*.swp
+
+!*/figures/*.pdf

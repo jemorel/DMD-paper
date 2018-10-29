@@ -1,0 +1,310 @@
+\documentclass[12pt]{article}
+\usepackage{afterpage}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsbsy}
+\usepackage{bm}
+\usepackage{epsfig}
+\usepackage{rotating}
+\usepackage{setspace}
+\usepackage{tabls}
+\usepackage{hhline}
+\usepackage{float}
+\usepackage{subfigure}
+%\usepackage{subfigmat}
+\usepackage{citesort}
+%\usepackage{cites}
+\usepackage{overcite}
+                                                                                                            
+% uncomment for submission of manuscript to NSE
+\usepackage[nolists, nomarkers]{endfloat}
+%
+% use to include postscript figures
+\usepackage{graphicx}
+%
+%\usepackage[light,firsttwo]{draftcopy}
+%\draftcopySetGrey{0.90}
+                                                                                                            
+%\usepackage{dbl}
+
+% -----------------------------------------------------------------------------
+% define newcommands
+% -----------------------------------------------------------------------------
+
+%\setlength{\floatsep}{4pt plus 1pt minus 1pt}
+\setlength{\textfloatsep}{8pt plus 1pt minus 1pt}
+%\setlength{\intextsep}{4pt plus 1pt minus 1pt}
+\setlength{\abovedisplayskip}{4pt plus 1pt minus 1pt}
+\setlength{\belowdisplayskip}{4pt plus 1pt minus 1pt}
+
+\makeatletter
+\renewcommand{\@thesubfigure}{\thefigure\thesubfigure\space}
+\makeatother
+% =================================================================================================
+% more new commands
+% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{8.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\topmargin}{0pt}
+\setlength{\headsep}{12pt}
+%\addtolength{\oddsidemargin}{-0.5in}
+%\addtolength{\textwidth}{1.0in}
+%\addtolength{\textheight}{1.0in}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+%
+% -----------------------------------------------------------------------------
+% define newcommands
+% -----------------------------------------------------------------------------
+
+%\setlength{\floatsep}{4pt plus 1pt minus 1pt}
+\setlength{\textfloatsep}{8pt plus 1pt minus 1pt}
+%\setlength{\intextsep}{4pt plus 1pt minus 1pt}
+\setlength{\abovedisplayskip}{4pt plus 1pt minus 1pt}
+\setlength{\belowdisplayskip}{4pt plus 1pt minus 1pt}
+
+% =================================================================================================
+% more new commands
+% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+% Ways of grouping things
+%
+\newcommand{\bracket}[1]{\left[ #1 \right]}
+\newcommand{\bracet}[1]{\left\{ #1 \right\}}
+\newcommand{\fn}[1]{\left( #1 \right)}
+\newcommand{\ave}[1]{\left\langle #1 \right\rangle}
+%
+% Derivative forms
+%
+\newcommand{\dx}[1]{\,d#1}
+\newcommand{\dxdy}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\dxdt}[1]{\frac{\partial #1}{\partial t}}
+\newcommand{\dxdz}[1]{\frac{\partial #1}{\partial z}}
+\newcommand{\dfdt}[1]{\frac{\partial}{\partial t} \fn{#1}}
+\newcommand{\dfdz}[1]{\frac{\partial}{\partial z} \fn{#1}}
+\newcommand{\ddt}[1]{\frac{\partial}{\partial t} #1}
+\newcommand{\ddz}[1]{\frac{\partial}{\partial z} #1}
+\newcommand{\dd}[2]{\frac{\partial}{\partial #1} #2}
+\newcommand{\ddx}[1]{\frac{\partial}{\partial x} #1}
+\newcommand{\ddy}[1]{\frac{\partial}{\partial y} #1}
+%
+% Vector forms
+%
+%\renewcommand{\vec}[1]{\ensuremath{\stackrel{\rightarrow}{#1}}}
+%\renewcommand{\div}{\ensuremath{\vec{\nabla} \cdot}}
+%\newcommand{\grad}{\ensuremath{\vec{\nabla}}}
+\renewcommand{\vec}[1]{\overrightarrow{#1}}
+\renewcommand{\div}{\vec{\nabla}\! \cdot \!}
+\newcommand{\grad}{\vec{\nabla}}
+\newcommand{\oa}[1]{\fn{\frac{1}{3}\hat{\Omega}\!\cdot\!\overrightarrow{A_{#1}}}}
+
+%
+% Equation beginnings and endings
+%
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\beas}{\begin{eqnarray*}}
+\newcommand{\eeas}{\end{eqnarray*}}
+\newcommand{\bdm}{\begin{displaymath}}
+\newcommand{\edm}{\end{displaymath}}
+%
+% Equation punctuation
+%
+\newcommand{\pec}{\hspace{0.25in},}
+\newcommand{\pep}{\hspace{0.25in}.}
+\newcommand{\pev}{\hspace{0.25in}}
+%
+% Equation labels and references, figure references, table references
+%
+\newcommand{\LEQ}[1]{\label{eq:#1}}
+\newcommand{\EQ}[1]{Eq.~(\ref{eq:#1})}
+\newcommand{\EQS}[1]{Eqs.~(\ref{eq:#1})}
+\newcommand{\REQ}[1]{\ref{eq:#1}}
+\newcommand{\LFI}[1]{\label{fi:#1}}
+\newcommand{\FI}[1]{Fig.~\ref{fi:#1}}
+\newcommand{\RFI}[1]{\ref{fi:#1}}
+\newcommand{\LTA}[1]{\label{ta:#1}}
+\newcommand{\TA}[1]{Table~\ref{ta:#1}}
+\newcommand{\RTA}[1]{\ref{ta:#1}}
+
+%
+% List beginnings and endings
+%
+\newcommand{\bl}{\bss\begin{itemize}}
+\newcommand{\el}{\vspace{-.5\baselineskip}\end{itemize}\ess}
+\newcommand{\ben}{\bss\begin{enumerate}}
+\newcommand{\een}{\vspace{-.5\baselineskip}\end{enumerate}\ess}
+%
+% Figure and table beginnings and endings
+%
+\newcommand{\bfg}{\begin{figure}}
+\newcommand{\efg}{\end{figure}}
+\newcommand{\bt}{\begin{table}}
+\newcommand{\et}{\end{table}}
+%
+% Tabular and center beginnings and endings
+%
+\newcommand{\bc}{\begin{center}}
+\newcommand{\ec}{\end{center}}
+\newcommand{\btb}{\begin{center}\begin{tabular}}
+\newcommand{\etb}{\end{tabular}\end{center}}
+%
+% Single space command
+%
+%\newcommand{\bss}{\begin{singlespace}}
+%\newcommand{\ess}{\end{singlespace}}
+\newcommand{\bss}{\singlespacing}
+\newcommand{\ess}{\doublespacing}
+%
+%---New environment "arbspace". (modeled after singlespace environment
+%                                in Doublespace.sty)
+%   The baselinestretch only takes effect at a size change, so do one.
+%
+\def\arbspace#1{\def\baselinestretch{#1}\@normalsize}
+\def\endarbspace{}
+\newcommand{\bas}{\begin{arbspace}}
+\newcommand{\eas}{\end{arbspace}}
+%
+% An explanation for a function
+%
+\newcommand{\explain}[1]{\mbox{\hspace{2em} #1}}
+%
+% Quick commands for symbols
+%
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\third}{\frac{1}{3}}
+\newcommand{\twothird}{\frac{2}{3}}
+\newcommand{\mdot}{\dot{m}}
+\newcommand{\ten}[1]{\times 10^{#1}\,}
+\newcommand{\cL}{{\cal L}}
+\newcommand{\cD}{{\cal D}}
+\newcommand{\cF}{{\cal F}}
+\newcommand{\cE}{{\cal E}}
+\renewcommand{\Re}{\mbox{Re}}
+\newcommand{\Ma}{\mbox{Ma}}
+%
+% Inclusion of Graphics Data
+%
+%\input{psfig}
+%\psfiginit
+%
+% More Quick Commands
+%
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\dxi}{\Delta x_i}
+\newcommand{\dyj}{\Delta y_j}
+\newcommand{\ts}[1]{\textstyle #1}
+% =================================================================================================
+\date{}
+
+\begin{document}
+
+%\bibliographystyle{nse}
+%\bibnum{p}
+
+\thispagestyle{empty}
+
+\bss
+\bc
+{\Large \bf Dynamic Mode Decomposition for Subcritical Metal Systems}\\
+\vspace{0.3in}
+{\large Zachary Hardy and Jim E. Morel\\
+Texas A\&M University\\
+Department of Nuclear Engineering\\
+TAMU 3133\\
+College Station, TX 77843-3133\\
+$ $\\
+Cory Ahrens\\
+Los Alamos National Laboratory\\
+Los Alamos, NM  87545\\
+$ $\\
+}
+\emph{zach.hardy@tamu.edu, morel@tamu.edu, cdahrens@lanl.gov}
+
+\vspace{1.5in}
+
+Send proofs and page charges to:\\
+\vspace{0.1in}
+Dr. Jim Morel\\
+Texas A\&M University\\
+Department of Nuclear Engineering\\
+TAMU 3133\\
+College Station, TX 77843-3133\\
+\vspace{0.25in}
+25 Pages -- 1 Table -- 4 Figures \\
+\ec
+\ess
+
+% =================================================================================================
+
+\newpage
+
+\begin{abstract}
+In this paper we explore the use of Dynamic Mode Decomposition (DMD) for modeling the kinetics of 
+subcritical metal systems pulsed with fast neutrons.  Our ultimate purpose is to obtain a fast and 
+accurate reduced-order model for such systems that can be used to develop an emulator.  
+An alternative to DMD is $\alpha$-eigenfunction expansions, but we show that DMD is vastly superior in 
+several ways for the systems of interest to us. 
+\end{abstract}
+
+\section{Introduction}
+The modeling of subcritical metal systems subjected to short bursts of fast neutrons is of interest 
+to us.  While such modeling can certainly be done with a time-dependent Sn code, we want to develop a
+reduced-order model that can provide insight into such systems and form the basis of an emulator in 
+order to solve inverse problems quickly and compute sensitivities economically.  For a supercritical 
+system, it is clear that the transport solution will eventually be completely dominated by the 
+fundamental mode $\alpha$-eigenfunction because it grows more quickly than any other mode.  However, the 
+situation is quite different for a subcritical system because the fundamental mode $\alpha$-eigenfunction 
+is simply the most slowly decaying mode.  There is no guarantee that it will dominate or even make a significant 
+contribution to the solution before the solution is negligibly small.  Its practical importance in a solution 
+depends upon the extent to which it is present in the expansion for the initial condition.  In 
+a subcritical system the fundamental mode will be dominated by the slowest neutrons, which will be thermal 
+neutrons. In a metal system subjected to a burst of fast neutrons, there will be almost no thermal neutrons 
+created before the pulse has effectively died away.  Thus it seems likely that an $\alpha$-eigenfunction expansion 
+will be particularly inefficient for such systems, because a high degree of cancellation between the eigenfunctions 
+will be required to achieve a negligible thermal neutron component in the initial condition.  
+
+Dynamic Mode Decomposition (DMD) is a reduced order technique for modeling dynamical systems.  It has been applied 
+in many areas (need references) and is perhaps best known for its use in the fluid-flow community.  The purpose of 
+this paper is to perform a preliminary investigation of DMD as an alternative to $\alpha$-eigenfunction expansions 
+for modeling our pulsed neutron experiments. (Need to reference any previous neutronics work with DMD here.) 
+For this initial study, we use a very approximate but relevant 
+high-dimensional model consisting of a time-dependent 1-D spherical geometry three-group diffusion approximation. 
+We have a analytic eigenfunction solution for these equations, as well as a computer code for solving 
+these equations with second-order accuracy in both time and space.  We later describe DMD in detail, but at 
+this point it suffices to say that given a time series of vector ``snapshots'' from a simulation or experiment, 
+DMD produces a time-dependent solution for those snapshots that is constructed from a sum of snapshot modes, each with 
+an exponential decay rate.  For instance, the snapshots could be space-dependent three-group diffusion scalar fluxes 
+from a time-dependent calculation.  They could also be an analogous time series of any quantity of interest computed 
+from the diffusion solution, such as space-dependent reaction rates.  The form of the DMD solution is identical to that 
+of an alpha-eigenfunction solution.  However, the DMD modes can only contain what the snapshots contain, so if the snapshots 
+lack a thermal neutron component, so will the DMD modes.  This suggests that fewer DMD modes should be required for 
+our problems than $\alpha$-eigenfunctions.
+
+Indeed we present results demonstrating that the DMD method is extremely accurate and far more efficient than 
+$\alpha$-eigenfunction expansions for our problems.  The remainder of this paper is organized as follows.  First we describe 
+the particular variant of the DMD method that we use.  Then we describe the three-group diffusion model, followed by a 
+description of our space-time discretization for the diffusion model.  Finally, numerical results are given, followed by 
+conclusions and recommendations for future work.
+
+
+\section{The DMD Method}
+
+\section{The Three-Group Diffusion Model}
+
+\section{Discretization of the Diffusion Equations}
+
+\section{Numerical Results}
+
+\section{Conclusions and Recommendations for Future Work}
+
+%\begin{thebibliography}{99}
+
+%\end{thebibliography}
+
+\end{document} 
+
