@@ -183,6 +183,16 @@
 \newcommand{\cD}{{\cal D}}
 \newcommand{\cF}{{\cal F}}
 \newcommand{\cE}{{\cal E}}
+\newcommand{\cS}{{\cal S}}
+\newcommand{\mA}{\mathbf{A}}
+\newcommand{\mX}{\mathbf{X}}
+\newcommand{\mU}{\mathbf{U}}
+\newcommand{\mW}{\mathbf{W}}
+\newcommand{\mSigma}{\mathbf{\Sigma}}
+\newcommand{\mS}{\mathbf{S}}
+\newcommand{\mB}{\mathbf{B}}
+\newcommand{\mC}{\mathbf{C}}
+\newcommand{\mD}{\mathbf{D}}
 \renewcommand{\Re}{\mbox{Re}}
 \newcommand{\Ma}{\mbox{Ma}}
 %
@@ -293,6 +303,184 @@ conclusions and recommendations for future work.
 
 
 \section{The DMD Method}
+There are many variations of the DMD method.  Here we describe the variant that we use to model subcritical fissioning systems.  
+One begins with a time series of vector snapshots, $\{\vec{v}_j\}_{j=1}^{N}$, uniformly sampled in time, that are associated with the 
+dynamical system.  We assume that at least the first $N-1$ snapshots are linearly-independent. A process for ensuring this 
+is later discussed.  Each vector has $M$ real 
+components with $M \gg N$. For example, each snapshot could represent a discrete angular flux solution in a time-dependent 
+transport calculation, or it could represent some space-dependent 
+quantity of interest associated with that solution.  Note that the snapshots can be obtained either computationally or 
+experimentally. For our application, we generate them computationally. It is further assumed that there exists a temporal 
+matrix $\mathbf{A}$, that maps each snapshot to its successor:
+\be
+\vec{v}_{i+1} = \mA \vec{v}_{i} \pec \quad i=1,N-1.
+\LEQ{2.1}
+\ee
+Let us consider the subspace of $M$-vectors, which we denote by $\cS$, spanned by the first $N-1$ snapshots.  If $\vec{v}_N$ 
+were replaced by a least-squares fit from $\cS$, then $\mA$ would be uniquely defined as a mapping from $\cS$ to $\cS$, and 
+be represented by the following matrix with respect to the snapshot basis:
+\be
+\mA_s = \bracket{
+\begin{array}{ccccccc}
+0 & 0 & ....& 0 & c_1 \\
+1 & 0 & ....& 0 & c_2 \\
+0 & 1 & ....& 0 & c_3 \\
+. & . & ....& . & . \\
+. & . & ....& . & . \\
+. & . & ....& . & . \\
+0 & 0 & ....& 0 & . \\
+0 & 0 & ....& 1 & c_{N-1}
+\end{array}
+} \pec
+\LEQ{2.2}
+\ee
+where the least-squares fit to $\vec{v}_N$ from $\cS$ is represented by 
+\be
+\widehat{v}_N = \sum_{j=1}^{N-1} c_j \vec{v}_j \pep
+\LEQ{2.3}
+\ee
+For example, in the snapshot basis, 
+\be
+\vec{v}_1 = (1,0,0,0,...0)^T \pec
+\LEQ{2.4}
+\ee
+and 
+\be
+\mA \vec{v}_1 = \vec{v}_2 = (0,1,0,0,...0)^T \pec
+\LEQ{2.5}
+\ee
+Note that if $c_1$ is non-zero, $\mA$ will be invertible on $\cS$, and thus will have $N-1$ non-zero eigenvalues. 
+We will define $\mA$ in this manner with respect to $\cS$, assume that it is invertible on $\cS$, and further define 
+all of its remaining eigenvalues to be zero.  
+Let $\{\lambda_i\}_{i=1}^{N-1}$ denote the non-zero eigenvectors of $\mA$, and let $\{\vec{z}_i\}_{i=1}^{N-1}$ denote the 
+corresponding eigenvectors. Then the dynamic solution is given by 
+\be
+\vec{v}(t) = \sum_{i=1}^{N-1} a_i \vec{z}_i \exp{(\omega_i t)} \pec
+\LEQ{2.5a}
+\ee
+where 
+\be
+\omega_i = \frac{\ln{(\lambda_i)}}{\Delta t} \pec
+\LEQ{2.5b}
+\ee
+where $\Delta t$ is the time between snapshots and the expansion coefficients, $\{a_i\}_{i=1}^{N-1}$ are determined by the 
+initial condition:
+\be
+\vec{v}(0) = \vec{v}_1 = \sum_{i=1}^{N-1} a_i \vec{z}_i \pep
+\LEQ{2.5c}
+\ee
+The dynamic solution exactly reproduces each of the snapshots at its time of sampling with the 
+exception of the last snapshot, which is approximated with its least-squares fit. This follows from the 
+fact that at the end of the first sampling period, $\mA$ is effectively applied to $\vec{v}_1$, 
+and reapplied at the end of each sampling period thereafter.  For instance, 
+\bea
+\vec{v}(\Delta t) &=& \sum_{i=1}^{N-1} a_i \vec{z}_i \exp{(\omega_i \Delta t)} \pec \nonumber \\
+&=& \sum_{i=1}^{N-1} a_i \vec{z}_i \lambda_i \pec \nonumber \\ 
+&=& \mA \vec{v}_1 \pec \nonumber \\ 
+&=& \vec{v}_2 \pep
+\LEQ{2.5d}
+\eea 
+Note that any eigenfunction with a zero-eigenvalue will have no dynamic content because it will 
+instantly attenuate to zero.  Thus if $\widehat{v}_N$ has a zero value for $c_1$ in \EQ{2.3},
+$\mA$ will have only $N-2$ non-zero eigenvalues, and one can simply ignore the eigenfunction associated 
+with the extra zero eigenvalue.  We henceforth continue to assume that $\mA$ has $N-1$ non-zero eigenvalues 
+for simplicity, but without loss of generality.
+
+We now describe a process that enables us to compute the non-zero eigenvalues and the eigenvectors of 
+of $\mA$.  Furthermore, we need not explicitly compute $\widehat{v}_N$.   First we 
+express \EQ{2.1} as follows, neglecting the substitution of $\widehat{v}_N$ for $\vec{v}_N$ for reasons later explained. 
+\be
+\mX_2^{N} = \mA \mX_{1}^{N-1} \pec
+\LEQ{2.6}
+\ee
+where $\mX_2^{N}$ is the $M \times N-1$ matrix whose colunms are the vectors $\vec{v}_2$ through $\vec{v}_{N}$, 
+and $\mX_{1}^{N-1}$ is the $M\times N-1$ matrix whose colunms are the vectors $\vec{v}_1$ through 
+$\vec{v}_{N-1}$. 
+
+We next perform a singular value decomposition (SVD) of $\mX_{1}^{N-1}$:
+\be
+\mX_{1}^{N-1} = \mU \mSigma \mW^T \pec
+\LEQ{2.7}
+\ee
+where $\mU$ is a $M \times M$ orthogonal matrix, $\mSigma$ is a $M\times N-1$ matrix with $N-1$ non-zero singular values on 
+the diagonal and zeros everywhere else, and $\mW^T$ is a 
+$N-1 \times N-1$ orthogonal matrix.  Substituting from \EQ{2.6} into \EQ{2.7}, we obtain, 
+\be
+\mX_2^{N} = \mA \mU \mSigma \mW^T \pec
+\LEQ{2.8}
+\ee
+Next we multiply \EQ{2.8} on the left by $\mU^{T}$ 
+and on the right by $\mW\mSigma^{-1}$ to obtain 
+\be
+\mS = \mU^{T}\mX_2^{N}\mW\mSigma^{-1} = \mU^{T}\mA\mU \pec
+\LEQ{2.10}
+\ee
+where $\mSigma^{-1}$ is the pseudo inverse of $\mSigma$.  
+The pseudo-inverse is obtained from $\mSigma$ simply by first inverting its non-zero elements and then transposing it. 
+Note that the right side of \EQ{2.10} is a $M \times M$ matrix that represents a similarity transformation 
+of $\mA$, and thus $\mS$ has the same eigenvalues as $\mA$.  Furthermore, in accordance with the similarity transformation, 
+if $\vec{y}$ is an eigenvector of $\mS$, then $\vec{z} = \mU \vec{y}$ is an eigenvector of $\mA$.  
+
+The structure of $\mS$ is important because it enables us to avoid computing the entire $M \times M$ matrix together with 
+its eigenvalues and eigenvectors.  More specifically, all the columns of $\mS$ beyond column $N-1$ are zero, and 
+we represent the remainder of the matrix as an $N-1 \times N-1$ matrix, $\mS_{T}$, in the upper top left corner and 
+a $M-N+1 \times N-1$ matrix, $\mS_B$, in the bottom left corner:
+\be
+\mS = \bracket{
+\begin{array}{cc}
+\mS_T  & 0 \\
+\mS_B & 0  
+\end{array}
+} \pec
+\LEQ{2.11}
+\ee
+It can be shown that the eigenvalues of $\mS_T$ are the non-zero eigenvalues of $\mS$, and hence, the non-zero eigenvalues of 
+$\mA$.  Furthermore, there is a very simple way to compute the corresponding eigenvectors of $\mS$ from the eigenvectors of 
+$\mS_T$. However, it is unnecessary to compute any eigenvectors other than those of $\mS_T$.  To explain why this is so, we 
+first note that the there is no difference between the eigenvectors of $\mS_T$ and the vectors formed by the first $N-1$ 
+components of the corresponding eigenvectors of $\mS$.  Thus if one computes the eigenvalues and eigenvectors of $\mS_T$, 
+one has the non-zero eigenvalues of $\mA$ and $\mS$, and the corresponding eigenvectors of $\mS$ truncated to a length of $N-1$.
+
+The first step in the calculation of the non-zero eigenvalues and corresponding eigenvectors of $\mA$ is to directly 
+compute $\mS_T$ as follows:
+\be
+\mS_T = \mU_{N-1}^{T} \mX_{2}^{N}\mW\mSigma^{-1}_{N-1} \pec
+\LEQ{2.12}
+\ee
+where $\mU_{N-1}$ is the $M \times N-1$ matrix composed of the first $N-1$ columns of $\mU$, and $\mSigma_{N-1}$ is the 
+$N-1 \times N-1$ matrix formed by the first $N-1$ rows of $\mSigma$.  
+
+At this point we have sufficient information to explain why one need not substitute $\widehat{v}_N$ for $\vec{v}_N$ in 
+$\mX_2^{N}$.  To this end we express the equations for the expansion coefficients of the least-squares fit to $\vec{v}_N$ 
+as follows:
+\be
+\mU^T_{N-1}\fn{\widehat{v}_N - \vec{v}_N} = \vec{0} \pec
+\LEQ{2.9}
+\ee
+where $\mU_{N-1}$ is the $M \times N-1$ matrix consisting of the first $N-1$ columns of $\mU$. Note that by virtue of the 
+SVD of $\mX_{1}^{N-1}$, these column vectors represent an orthonormal basis for the first $N-1$ snapshots.  Thus $\widehat{v}_N$ 
+does indeed represent a least-squares fit to $\vec{v}_N$ from $\cS$.  From \EQ{2.9} it follows that the first $N-1$ components of 
+$\mU^T \vec{v}_N$ are identical to those of $\mU^T \widehat{v}_N$. Thus it can be seen from \EQ{2.12} that $\mS_T$ is 
+invariant to the substitution of $\widehat{v}_N$ for $\vec{v}_N$ in $X_{2}^{N}$.
+
+Finally, we compute the non-zero eigenvectors of $\mA$ simply by multiplying the eigenvectors of $\mS_T$ by $U_{N-1}$. 
+\be
+\vec{z}_i = \mU_{N-1} \vec{x}_i \pec \quad i=1,N-1,
+\LEQ{2.13}
+\ee
+where $\vec{z}_i$ and $\vec{x}_i$ are the $i$'th eigenvectors of $\mA$ and $\mS_T$, respectively.  This is clearly much more 
+economical than computing the eigenvectors of $\mS$ and multiplying them by $\mU$.  This simplification is justified by the fact 
+that since the first $N-1$ columns of $\mU$ form an orthonormal basis for $\cS$, the non-zero eigenvectors of $\mA$ 
+must lie in this space.  Thus columns of $\mU$ beyond $N-1$, or equivalently, elements of the eigenvectors of $\mS$ below the 
+$N-1$ position do not contribute to the non-zero eigenvectors of $\mA$. 
+
+The SVD of $\mX_{1}^{N-1}$ can be used to determine if the first $N-1$ snapshots are sufficiently linearly independent by 
+inspection of the singular values.  Below some tolerance one can consider the singular values to be zero, and discard the 
+corresponding information in the various component matrices.  More specifically, if we assume that only the first $K$ 
+singular values are considered non-zero, then in \EQ{2.12} only the first $K$ columns of $\mU_{N-1}$ and $\mX_{2}^{N}$ are retained, 
+and only the first $K$ columns and first $K$ rows of $\mSigma_{N-1}$ and $\mW^T$ are retained.  We currently set any singular 
+value that is less than $10^{-8}$ times the largest singular value to zero. It is not generally clear as to what tolerance is 
+the most efficient.  We determine this on a case-by-case basis.
 
 \section{The Three-Group Diffusion Model}
 
