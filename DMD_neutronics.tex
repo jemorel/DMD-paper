@@ -262,40 +262,50 @@ several ways for the systems of interest to us.
 \end{abstract}
 
 \section{Introduction}
-The modeling of subcritical metal systems subjected to short bursts of fast neutrons is of interest 
-to us.  While such modeling can certainly be done with a time-dependent Sn code, we want to develop a
-reduced-order model that can provide insight into such systems and form the basis of an emulator in 
-order to solve inverse problems quickly and compute sensitivities economically.  For a supercritical 
-system, it is clear that the transport solution will eventually be completely dominated by the 
-fundamental mode $\alpha$-eigenfunction because it grows more quickly than any other mode.  However, the 
-situation is quite different for a subcritical system because the fundamental mode $\alpha$-eigenfunction 
-is simply the most slowly decaying mode.  There is no guarantee that it will dominate or even make a significant 
-contribution to the solution before the solution is negligibly small.  Its practical importance in a solution 
-depends upon the extent to which it is present in the expansion for the initial condition.  In 
+Modeling of subcritical metal systems subjected to short bursts of fast neutrons is challenging. 
+While such modeling can certainly be done with a time-dependent transport code, we want to develop a
+reduced-order model that can provide physical insight into such systems and form the basis of an emulator in 
+order to solve inverse problems quickly and compute sensitivities economically. 
+
+One method of developing a reduced-order model is a truncated $\alpha$-eigenfunction expansion. To the author's knowledge, no proof of the
+incompleteness of the alpha eigenfunctions exists. It seems, however, that because of the singular nature of the uncollided and first
+collided flux (cite Larsen and Bondarenko), the $\alpha$-eigenfunctions likely do not form a complete basis. However, Jorgens proved, under
+ rather general assumptions, that the $\alpha$-eigenfunctions form an ``asymptotically complete'' basis in the following sense: for times $t>3\tau$, where $\tau$ is a
+representative time for neutrons to stream across the spatial domain, $\psi\left(t\right) \sim \sum_{n=0}^{N-1} A_n \psi_n e^{\alpha_n t}$, where the
+remainder term is proportional to $e^{\alpha_N t}$ and the amplitudes $A_n$ depend on the initial condition. From this representation and the fact that the
+eigenvalues are ordered as $...Re\left(\alpha_3\right)\le Re\left(\alpha_2\right)\le Re\left(\alpha_1\right) < \alpha_0$, one sees that $|\alpha_0 -
+\alpha_1|^{-1}$ sets a time scale for the higher-order modes to decay relative to the fundamental mode. The relationship of this time scale compared with 
+the time over which the experiment takes place can be significantly different for subcritical compared to supercritical systems.  
+
+Indeed, for a supercritical system, where $\alpha_0 > 0$ and the real part of $\alpha_n$, $n=1,2,3,...$ is negative, the transport
+solution is quickly dominated by the fundamental mode $\alpha$-eigenfunction. However, the 
+situation can be different for a subcritical system. If the flux (experimental signal) decays much faster than $|\alpha_0 -
+\alpha_1|^{-1}$ , then the fundamental mode might not contribution significanlty to the signal before it is negligibly small. The contribution of the 
+fundamental mode depends upon the extent to which it is present in the expansion for the initial condition. In 
 a subcritical system the fundamental mode will be dominated by the slowest neutrons, which will be thermal 
 neutrons. In a metal system subjected to a burst of fast neutrons, there will be almost no thermal neutrons 
-created before the pulse has effectively died away.  Thus it seems likely that an $\alpha$-eigenfunction expansion 
+created before the response of the system has effectively died away.  Thus it seems likely that an $\alpha$-eigenfunction expansion 
 will be particularly inefficient for such systems, because a high degree of cancellation between the eigenfunctions 
 will be required to achieve a negligible thermal neutron component in the initial condition.  
 
 Dynamic Mode Decomposition (DMD) is a reduced order technique for modeling dynamical systems.  It has been applied 
 in many areas (need references) and is perhaps best known for its use in the fluid-flow community.  The purpose of 
 this paper is to perform a preliminary investigation of DMD as an alternative to $\alpha$-eigenfunction expansions 
-for modeling our pulsed neutron experiments. (Need to reference any previous neutronics work with DMD here.) 
+for modeling pulsed neutron experiments. (Need to reference any previous neutronics work with DMD here.) 
 For this initial study, we use a very approximate but relevant 
 high-dimensional model consisting of a time-dependent 1-D spherical geometry three-group diffusion approximation. 
-We have a analytic eigenfunction solution for these equations, as well as a computer code for solving 
+We have an analytic eigenfunction solution for these equations, as well as a computer code for solving 
 these equations with second-order accuracy in both time and space.  We later describe DMD in detail, but at 
 this point it suffices to say that given a time series of vector ``snapshots'' from a simulation or experiment, 
 DMD produces a time-dependent solution for those snapshots that is constructed from a sum of snapshot modes, each with 
-an exponential decay rate.  For instance, the snapshots could be space-dependent three-group diffusion scalar fluxes 
+an exponential decay rate.  For instance, the snapshots could be space-dependent, three-group diffusion scalar fluxes 
 from a time-dependent calculation.  They could also be an analogous time series of any quantity of interest computed 
 from the diffusion solution, such as space-dependent reaction rates.  The form of the DMD solution is identical to that 
 of an alpha-eigenfunction solution.  However, the DMD modes can only contain what the snapshots contain, so if the snapshots 
 lack a thermal neutron component, so will the DMD modes.  This suggests that fewer DMD modes should be required for 
 our problems than $\alpha$-eigenfunctions.
 
-Indeed we present results demonstrating that the DMD method is extremely accurate and far more efficient than 
+Indeed we present results demonstrating that the DMD method is accurate and more efficient than 
 $\alpha$-eigenfunction expansions for our problems.  The remainder of this paper is organized as follows.  First we describe 
 the particular variant of the DMD method that we use.  Then we describe the three-group diffusion model, followed by a 
 description of our space-time discretization for the diffusion model.  Finally, numerical results are given, followed by 
