@@ -1,7 +1,7 @@
 \documentclass[12pt]{article}
 
 \usepackage{graphicx}
-\graphicspath{{plots/}}
+\graphicspath{{Figures/}}
 \usepackage{afterpage}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -496,11 +496,25 @@ value that is less than $10^{-8}$ times the largest singular value to zero. It i
 the most efficient.  We determine this on a case-by-case basis.
 
 \section{The Three-Group Diffusion Model}
-The primary goal of this work is to explore the ability of DMD to effectively filter out irrelevant portions of phase space to produce a reduced order model.  Because thermal neutrons have effectively no contribution to the results of a computational model or experiment within the application space of interest, we choose the model to reflect these characteristics. For the purposes of this  work, only diffusion in a bare, homogeneous fissioning sphere with an atom density of $N = 0.05 \text{ atoms/cc}$ is considered. 
+The primary goal of this work is to explore the ability of DMD to effectively filter out irrelevant portions of phase space 
+to produce a reduced order model.  
+Because thermal neutrons have effectively no contribution to the results of a computational model or experiment within 
+the application space of interest, we choose the model to reflect these characteristics. 
+For the purposes of this  work, only diffusion in a bare, homogeneous fissioning sphere with an atom density of 
+$N = 0.05 \text{ atoms/cc}$ is considered. 
 
-For simplicity, and to give a clear DMD performance metric, three energy groups - fast, epithermal, and thermal - are used.  The nuclear data is tabulated in \TA{xs_data}, where $\chi$ is the fission spectrum, $\nu\sigma_f$ is the fission neutron production cross section, $\sigma_R$ is the removal cross section, including exlusively absorption and outscattering, $\sigma_t$ is the total cross section, and $v$ is the velocity.  As is apparent from the table, fission neutrons are only born into the fast group indicating that the only production of epithermal and thermal neutrons comes from downscattering. The scattering matrix is shown in \TA{scat}.  There is only scattering from the fast to epithermal group and no upscattering whatsoever.  
+For simplicity, and to give a clear DMD performance metric, three energy groups - fast, epithermal, and thermal - are used.  
+The nuclear data is tabulated in \TA{xs_data}, where $\chi$ is the fission spectrum, $\nu\sigma_f$ is the 
+fission neutron production cross section, $\sigma_R$ is the removal cross section, including exlusively absorption 
+and outscattering, $\sigma_t$ is the total cross section, and $v$ is the velocity.  
+As is apparent from the table, fission neutrons are only born into the fast group indicating that 
+the only production of epithermal and thermal neutrons comes from downscattering. 
+The scattering matrix is shown in \TA{scat}.  
+There is only scattering from the fast to epithermal group and no upscattering whatsoever.  
 
-With this model it is assured that thermal neutrons only appear in the problem if they exist in the initial condition.  This makes the analysis of the performance of the DMD quite simple; in a problem where thermal neutrons are, in fact, irrelevant to the solution, the DMD solution should not have a thermal component. 
+With this model it is assured that thermal neutrons only appear in the problem if they exist in the initial condition.  
+This makes the analysis of the performance of the DMD quite simple; in a problem where thermal neutrons are, 
+in fact, irrelevant to the solution, the DMD solution should not have a thermal component. 
 
 \bt[h] \centering 
 	\caption{Nuclear data for the three-group model.} 
@@ -526,36 +540,44 @@ With this model it is assured that thermal neutrons only appear in the problem i
 	\etb \LTA{scat}
 \et
 
-This problem is particularly advantageous because an analytical solution can be developed for the desired $\alpha$-eigenfunctions which characterize the dynamic behavior of the system. 
-This system is governed by the time-dependent multi-group neutron diffusion equations. The center of the spherical system is reflective and a zero-flux condition is imposed at the physical boundary. The initial condition will be parabolic in space for both the fast and epithermal groups and zero for the thermal group. This is given in \EQ{mg_diff}.
+This system is governed by the time-dependent multi-group neutron diffusion equations. 
+The center of the spherical system is reflective and a zero-flux condition is imposed at the physical boundary. 
+The initial condition will be parabolic in space for both the fast and epithermal groups and zero for the thermal group. 
+This is given in \EQ{mg_diff},
 
 \be
 	\begin{cases}
-	\dxdy{\phi_g}{t} - \nabla \cdot D_g \nabla \phi_g + \Sigma_{R,g} \phi_g = \chi_g \sum\limits_{g'=1}^{3} \nu\Sigma_{f,g'} \phi_{g'} + \sum\limits_{g'=1, \ g' \neq g}^g \Sigma_s^{g' \rightarrow g} \phi_{g'} \\
-	%
+	\dxdy{\phi_g}{t} - \nabla \cdot D_g \nabla \phi_g + \Sigma_{R,g} \phi_g = \chi_g \sum\limits_{g'=1}^{3} \nu\Sigma_{f,g'} \phi_{g'} + 
+	\sum\limits_{g'=1, \ g' \neq g}^g \Sigma_s^{g' \rightarrow g} \phi_{g'} \\
 	-D_g \dxdy{\phi_g}{r} \Big\rvert_{(0,t)} = 0, \pev \phi_g(R,t) = 0 \\
-	%
 	\phi_1(r,0) = \phi_2(r,0) = \frac{R^2 - r^2}{R^2}, \pev \phi_3(r,0) = 0
-	\end{cases} 
+	\end{cases} ,
 \LEQ{mg_diff} \ee 
-where $\Sigma$s are macroscopic cross sections, given by $\Sigma = N\sigma$, and $D_g$ is the diffusion coefficient, given by $1/3\Sigma_t$. This can be simplified based on the nuclear data to \EQ{simp_diff}.
+where $\Sigma$'s are macroscopic cross sections, given by $\Sigma = N\sigma$, 
+and $D_g$ is the diffusion coefficient, given by $1/3\Sigma_t$. 
+This can be simplified based on the nuclear data to \EQ{simp_diff}.
 
 \be
 	\begin{cases}
-	\dxdy{\phi_g}{t} - \nabla \cdot D_g \nabla \phi_g + \Sigma_{R,g} \phi_g = \chi_1 \sum\limits_{g'=1}^{3} \nu\Sigma_{f,g'} \phi_{g'} + \Sigma_s^{1 \rightarrow 2} \phi_{1} \\
-	%
+	\dxdy{\phi_g}{t} - \nabla \cdot D_g \nabla \phi_g + \Sigma_{R,g} \phi_g = \chi_1 \sum\limits_{g'=1}^{3} \nu\Sigma_{f,g'} \phi_{g'} 
+	+ \Sigma_s^{1 \rightarrow 2} \phi_{1} \\
 	-D_g \dxdy{\phi_g}{r} \Big\rvert_{(0,t)} = 0, \pev \phi_g(R,t) = 0 \\
-	%
 	\phi_1(r,0) = \phi_2(r,0) = \frac{R^2 - r^2}{R^2}, \pev \phi_3(r,0) = 0.
 	\end{cases} 
 \LEQ{simp_diff}\ee
 
-This problem can be solved using an doubly-indexed $\alpha$-eigenfunction expansion.  The expansion takes the form shown in \EQ{exp}.
+This problem can be solved using an doubly-indexed $\alpha$-eigenfunction expansion.  
+The expansion takes the form shown in \EQ{exp}.
 
 \be
 	\phi_g(r, t) = \sum_{n, m = 0}^{\infty, 3} A_{nm} \varphi_n(r) f_{nm, g} e^{\alpha_{nm} t},
 \LEQ{exp} \ee
-where $n$ gives the index of the spatial mode and $m$ gives the index of the energy modes corresponding to each spatial mode, $A_{nm}$ is the coeffient for the $n,m$'th space-energy mode, $\varphi_n(r)$ is the $n$'th spatial mode, $f_{nm, g}$ is the $g$'th component of the $n,m$'th space-energy mode, and $\alpha_{nm}$ is the time eigenvalue for the $n,m$'th space-energy mode. The spatial modes are those of the Laplace equation for a spherical geometry given by \EQ{eigfunc}, with the same boundary conditions as those in the governing equation.
+where $n$ gives the index of the spatial mode and $m$ gives the index of the energy modes corresponding to each spatial mode.
+$A_{nm}$ is the coeffient for the $n,m$'th space-energy mode, $\varphi_n(r)$ is the $n$'th spatial mode, 
+$f_{nm, g}$ is the $g$'th component of the $n,m$'th space-energy mode, 
+and $\alpha_{nm}$ is the time eigenvalue for the $n,m$'th space-energy mode. 
+The spatial modes are those of the Laplace equation for a spherical geometry given by \EQ{eigfunc},
+with the same boundary conditions as those in the governing equation.
 
 \be
 	\varphi_n(r) = \frac{1}{r} \sin\fn{ \frac{n \pi r}{R} }
@@ -567,53 +589,84 @@ For simplicity, the buckling approximation is used in place of the Laplacian, as
 	- \nabla^2 \varphi_n(r) &= B_n^2 \varphi_n(r) \\
 	B_n^2 &= \fn{ \frac{n \pi}{R} }^2
 \end{aligned} \LEQ{buckle} \eea
-Plugging in the eigenfunction expansion into the governing equation, rearranging, and taking advantage of the orthogonality of the spatial eigenfunctions, an eigenvalue problem is formed for each spatial mode, given by \EQ{eigprob}.
+Plugging in the eigenfunction expansion into the governing equation, rearranging, and taking advantage of the 
+orthogonality of the spatial eigenfunctions, an eigenvalue problem is formed for each spatial mode, given by \EQ{eigprob}.
 
 \be
-	\alpha_{nm} f_{nm, g} = v_g \fn{ - \fn{ D_g B_n^2 + \Sigma_{R,g} }f_{nm, g} + \chi_1 \sum_{g' = 1}^{3} \nu\Sigma_{f,g'} f_{nm, g'} + \Sigma_s^{1 \rightarrow 2} f_{nm, 1} } 
+	\alpha_{nm} f_{nm, g} = v_g \fn{ - \fn{ D_g B_n^2 + \Sigma_{R,g} }f_{nm, g} + \chi_1 \sum_{g' = 1}^{3} \nu\Sigma_{f,g'} f_{nm, g'} 
+	+ \Sigma_s^{1 \rightarrow 2} f_{nm, 1} } 
 \LEQ{eigprob} \ee
-It should be clear that this forms a 3 $\times$ 3 system which will yield 3 distinctive $\alpha$-eigenvalues with corresponding eigenvectors of length 3 for each spatial mode used in the expansion.
+It should be clear that this forms a 3 $\times$ 3 system which will yield 3 distinctive $\alpha$-eigenvalues 
+with corresponding eigenvectors of length 3 for each spatial mode used in the expansion.
 
-The coefficients for each space-energy mode is computed by a projection of the the initial condition onto each respective space-energy mode. Because the eigenproblem described above is not symmetric, the adjoint (left) eigenfunctions given by, $f_{nm}^* \varphi_n(r)$, must be used. The spatial eigenfunctions do not have the adjoint designation because they are self-adjoint. The coefficients are computed according to \EQ{coeff}.
+The coefficients for each space-energy mode is computed by a projection of the the initial condition
+onto each respective space-energy mode. 
+Because the eigenproblem described above is not symmetric, the adjoint (left) eigenfunctions given by, 
+$f_{nm}^* \varphi_n(r)$, must be used. 
+The spatial eigenfunctions do not have the adjoint designation because they are self-adjoint. 
+The coefficients are computed according to \EQ{coeff},
 
 \be
 	A_{nm} = \frac{\ave{ f_{nm}^* \varphi_n(r), \ \phi(r, 0)}}{\ave{f_{nm}^* \varphi_n(r), \ f_{nm} \varphi_n(r)}},
 \LEQ{coeff} \ee
-where $\ave{\cdot}$ designates the inner product, an integration and sum, over space and energy, respectively. To generate the full analytic solution modes are generated and added to the solution until the $L^2$-fit to the initial condition changes by less than a specified tolerance. This expansion is then propegated forward in time with the $\alpha$-eigenfunctions to some specified  time.
+where $\ave{\cdot}$ designates the inner product, an integration and sum, over space and energy, respectively. 
+To generate the full analytic solution modes are generated and added to the solution until the $L^2$-fit to the initial condition 
+changes by less than a specified tolerance. 
+This expansion is then propegated forward in time with the $\alpha$-eigenfunctions to some specified  time.
 
 \section{Discretization of the Diffusion Equations}
-In practice,  $\alpha$-eigenvalue calculations for this application are quite computationally expensive, and  further, in most cases, analytic solutions is not available. For this reason, it is desireable to develop a numerical method so that the accuracy of DMD can be characterized in a realistic way and compared against a known solution. This section outlines the development of a second-order accurate method using cell-centered finite volume discretization in space and trapezoidal second-order backwards difference (TBDF-2) discretization in time.
+In practice,  $\alpha$-eigenvalue calculations for this application are quite computationally expensive, and  further, 
+in most cases, analytic solutions is not available. 
+For this reason, it is desireable to develop a numerical method so that the accuracy of DMD can be characterized in a realistic way
+and compared against a known solution. 
+This section outlines the development of a second-order accurate method using cell-centered finite volume discretization in space 
+and trapezoidal second-order backwards difference (TBDF-2) discretization in time.
 
-In the spatial discretization, the domain is broken into $N$ cells, with cell width $h$, where the cell centers carry integer indiced and the edges half-integer indices. Consider \EQ{cell_eqn}, the conservation equation for the i$^{\text{th}}$ cell
+In the spatial discretization, the domain is broken into $N$ cells, with cell width $h$, where the 
+cell centers carry integer indiced and the edges half-integer indices. 
+Consider \EQ{cell_eqn}, the conservation equation for the i$^{\text{th}}$ cell
 
 \be
 	 \frac{1}{v_g} \dxdt{\phi_{i,g}} - \nabla D_{g} \nabla \phi_{i,g} + \Sigma_{R,g} \phi_{i,g}  =  S_{i,g},
 \LEQ{cell_eqn} \ee
-where $S_{i,g}$ contains the production terms for group $g$ neutrons in cell $i$. The reader should note that source term includes the unknown $ \phi_{i,g} $ variables. Integrating over the cell volume, the following is obtained,
+where $S_{i,g}$ contains the production terms for group $g$ neutrons in cell $i$. 
+The reader should note that source term includes the unknown $ \phi_{i,g} $ variables. 
+Integrating over the cell volume, the following is obtained,
 
 \be
 	\frac{V_i}{v_g} \dxdt{\phi_{i,g}} - A_{i+\half} J_{i+\half,g} + A_{i-\half} J_{i-\half,g} + V_i \Sigma_{R,g} \phi_{i,g} = V_i S_{i,g}
 \ee
-where $V_i $ is the volume of cell $i$, $ A_{i+1/2} $ is the surface area of the outer edge of cell $i$ and $ J_{i+1/2} = D_g \nabla \phi_{g,i} $ is the current at outer edge of cell $i$. Central difference is now applied to the current terms to obtain \EQ{space_discretized}
+where $V_i $ is the volume of cell $i$, $ A_{i+1/2} $ is the surface area of the outer edge of cell $i$, 
+and $ J_{i+1/2} = D_g \nabla \phi_{g,i} $ is the current at outer edge of cell $i$. 
+Central difference is now applied to the current terms with respect to adjacent cell-centers to obtain the 
+second-order accurate scheme, as shown in \EQ{space_discretized}.
 
 \be
-	\frac{V_i}{v_g} \dxdt{\phi_{i,g}} - A_{i+\half} \frac{\phi_{i+1,g} - \phi_{i,g}}{h} + A_{i-\half} \frac{\phi_{i,g} - \phi_{i-1,g}}{h} + V_i \Sigma_{R,g} \phi_{i,g} = V_i S_{i,g},
+	\frac{V_i}{v_g} \dxdt{\phi_{i,g}} - A_{i+\half} \frac{\phi_{i+1,g} - \phi_{i,g}}{h} + A_{i-\half} \frac{\phi_{i,g} - \phi_{i-1,g}}{h} + 
+	V_i \Sigma_{R,g} \phi_{i,g} = V_i S_{i,g},
  \LEQ{space_discretized} \ee
- which is second-order accurate.
 
-The TBDF-2 temporal discretization is advantageous because it is second-order accurate and strongly damps fast time-scale components of the solution unlike methods such as Crank-Nicholson, which can be highly oscillatory for stiff systems. This method first takes half of a time-step using Crank-Nicholson. This is shown for an arbitrary linear system in \EQ{halfCN}. 
+
+The TBDF-2 temporal discretization is advantageous because it is second-order accurate and strongly damps 
+fast time-scale components of the solution, unlike methods such as Crank-Nicholson, 
+which can be highly oscillatory for stiff systems. 
+This method first takes half of a time-step using Crank-Nicholson, and is shown for an arbitrary linear system in \EQ{halfCN}. 
 
 \be
 	\frac{2 \fn{ f^{n+\half} - f^n }}{\Delta t} =  \half A \fn{f^{n+\half} + f^n}.
 \LEQ{halfCN} \ee
-The result of solving for $f^{n+\half}$ is then plugged into second-order backwards difference to obtain the solution at the end of the time step, shown in \EQ{halfBDF}.
+The result of solving for $f^{n+\half}$ is then plugged into second-order backwards difference to obtain the solution 
+at the end of the time step, shown in \EQ{halfBDF}.
 
 \be
 	\frac{3 \fn{ f^{n+1} - f^{n+\half} }}{\Delta t} - \frac{f^{n+\half} - f^n}{\Delta t} = A f^{n+1}.
 \LEQ{halfBDF} \ee 
-Implementing this is relatively straightforward. The time derivative term containing the scalar flux at ther next half-time step gets added into the operator and the terms containing the scalar flux from previous time-steps become a source term.
+Implementing this is relatively straightforward. 
+The time derivative term containing the scalar flux at ther next half-time step gets added into the operator and 
+the terms containing the scalar flux from previous time-steps become a source term.
 
-Overall, this method is second order accurate. This was verified by computing the relative $L^2$-error norms with the analytical solution for 6-space/time grid halvings, as seen in \FI{2ord}
+Overall, this method is second order accurate and was verified against the analytic solution. 
+\FI{2ord} shows the error as a function of number of spatiotemporal grid halvings, where a slope of 2 is observed.
 
 \bfg[h] \centering
 	\includegraphics[scale=0.5]{method_convergence.png}
@@ -621,9 +674,64 @@ Overall, this method is second order accurate. This was verified by computing th
 	\LFI{2ord}
 \efg
 
-
-
 \section{Numerical Results}
+In this section numerical results are presented which characterize the efficiency and accuracy of DMD for this application.
+These results will then be compared to the method of $\alpha$-eigenfunction expansions to demonstrate its distinctive advantages.
+The DMD solution presented in this section is derived from data produced by the numerical model discussed above for a 5 cm sphere
+over a 10 ns simulation time discretized into 500 spatial cells and 30 time-steps. 
+
+In order for DMD to be a viable reduced order model, a low-rank structure must exist within the data.
+The existence of such a structure is often checked by inspecting the singular value spectrum.
+Because singular values are related to the eigenvalues matrix it decomposes, the singular values of the rectangular matrix
+ $\bm{X}^{N-1}_1$ contains information about the dominant time-eigenvalues during the duration of the simulation.
+The singular value spectrum of  $\bm{X}^{N-1}_1$ is presented below in \FI{sv-spec}, and clearly shows that this condition is met.
+
+\bfg[h] \centering
+	\includegraphics[scale=0.5]{singularValueSpectrum.png}
+	\caption{Singlar value spectrum of numerical snapshot series}
+	\LFI{sv-spec}
+\efg
+
+In implementation of DMD, one often may want to use fewer modes than the $N-1$, the maximum number of modes obtained without 
+any truncation. 
+The very small singular values correspond to very little dynamics information, or the degree of linear dependency on the prior snapshots.
+For this reason, it becomes important to understand how to choose the number of dynamic modes to keep.
+This can be done by specifying a singular value cutoff such that all singular values small are set to zero and neglected, 
+or by specifying the number of modes desired.
+Theory states that the error in the DMD representation of the data it decomposes is proportional to the magnitude 
+of the largest truncated singular value.
+This is demonstrated as a code verification in \FI{recovery}.
+
+\bfg[h] \centering
+	$
+	\begin{array}{cc}
+	\includegraphics[scale=0.5]{cutoffStudy.png} &
+	\includegraphics[scale=0.5]{rankStudy.png}
+	\end{array}
+	$
+	\caption{DMD solution recovery study}
+	\LFI{recovery}
+\efg
+
+In practical applications, only the number of modes corresponding to error on the order of the  simulation error need be kept. 
+For example, if the numerical simulation has error on the order of $10^{-4}$, from the singular value spectrum above,
+only 5 dynamic modes are needed to maintain the same level of accuracy to the analytic solution. 
+For this reason, it is recommended that a singular value cutoff is used and set to satisfy this criteria. 
+
+To present a visual representation of DMD's ability to reproduce the solution it decomposes, the DMD solution and exact solutions are plotted against each other at 1/3, 1/2, and 2/3 simulation time, respectively in \FI{flx-plt}. For this case, the numerical solution is accurate to the exact solution to 4 digits in an $L^2$ sense. This plot shows the qualitatively shows both the accuracy of the DMD solution throughout the duration of the simulation and its accuracy at both times corresponding to a snapshot and times in between snapshots.
+
+\bfg[!htb] \centering
+	$
+	\begin{array}{cc}
+	\includegraphics[scale=0.45]{groupFlux_t3ns.png} &
+	\includegraphics[scale=0.45]{groupFlux_t5ns.png} \\
+	\end{array}
+	$
+	\includegraphics[scale=0.45]{groupFlux_t6ns.png}
+	\caption{Scalar group flux at 1/3, 1/2, and 2/3 simulation time}
+	\LFI{flx-plt}
+\efg
+
 
 \section{Conclusions and Recommendations for Future Work}
 
