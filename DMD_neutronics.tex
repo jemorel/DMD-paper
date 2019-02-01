@@ -758,21 +758,33 @@ Overall, this method is second order accurate and was verified against the analy
 \efg
 
 \section{Numerical Results}
-In this section numerical results are presented which characterize the efficiency and accuracy of DMD 
-	for this application.
-These results will then be compared to the method of $\alpha$-eigenfunction expansions to
-	demonstrate its distinctive advantages.
+In this section numerical results are presented which characterize the 
+	efficiency and accuracy of DMD for this application using both the scalar 
+	group flux and fission rate.
 The DMD solution presented in this section is derived from data produced by the numerical model 
-	discussed above for a 5 cm sphere over a 10 ns simulation time discretized into 500 spatial cells and 30 time-steps. 
+	discussed above for a 5 cm sphere over a 10 ns simulation time discretized 
+	into 500 spatial cells and 30 time-steps.
+Seperate sections will describe the application of DMD on both the scalar 
+	group flux and the fission rate.
+Each section will present the singular value spectrum for the simulation data,
+	show the convergence of the DMD solution to the simulation data in the 
+	Frobenius norm, show a few snapshots of the DMD solution overlayed on the 
+	exact solution, and give results for the interpolative and extrapolative 
+	abilities of DMD between snapshots and beyond the data collection period, 
+	respectively.
+In addition, the performance of DMD on the scalar group flux will and the 
+	physical insights gained will be compared with that of an 
+	$\alpha$-eigenfunction computation.
 
-\subsection{DMD with the Scalar Group-Flux}
-In order for DMD to be a viable reduced order model, a low-rank structure must exist within the data.
-The existence of such a structure is often checked by inspecting the singular value spectrum.
-Because singular values are related to the eigenvalues matrix it decomposes, the singular values of the 	
-	rectangular matrix $\bm{X}^{N-1}_1$ contains information about the dominant time-eigenvalues 
-	during the duration of the simulation.
-The singular value spectrum of  $\bm{X}^{N-1}_1$ is presented below in \FI{sv-spec}, and clearly shows 
-	that this condition is, in fact, met.
+\subsection{DMD with the Scalar Group Flux}
+In order for DMD to be a viable reduced order model, a low-rank structure must 
+	exist within the data.
+Because singular values are related to the eigenvalues matrix it decomposes, 
+	the singular values of the rectangular matrix $\bm{X}^{N-1}_1$ contains 
+	information about the dominant time-eigenvalues during the duration of the 
+	simulation.
+The singular value spectrum of  $\bm{X}^{N-1}_1$ is presented below in 
+	\FI{sv-spec}, and shows that this condition is, in fact, met.
 
 \bfg[h] \centering
 	\includegraphics[scale=0.5]{singularValueSpectrum_flux.png}
@@ -780,16 +792,18 @@ The singular value spectrum of  $\bm{X}^{N-1}_1$ is presented below in \FI{sv-sp
 	\LFI{sv-spec}
 \efg
 
-In implementation of DMD, one often may want to use fewer modes than the $N-1$, the maximum 
-	number of modes obtained without any truncation. 
-The very small singular values correspond to very little dynamics information, or the degree of linear 
-	dependency on the prior snapshots.
-For this reason, it becomes important to understand how to choose the number of dynamic modes to keep.
-This can be done by specifying a singular value cutoff such that all singular values small are set to zero 
-	and neglected, or by specifying the number of modes desired.
-If the snapshot series is denoted as $X$, and the DMD representation of $X$, $X_{DMD}$, theory 
-	states that the error in the Frobenius norm is proportional to the magnitude of the largest truncated
-	singular value, given by $\lVert X - X_{DMD} \rVert_F \sim \sigma_{K+1}$ (cite)
+In implementation of DMD, one often may want to use fewer modes than the $N-1$, 
+	the maximum number of modes obtained without any truncation. 
+Because very small singular values correspond to very little dynamics 
+	information, it becomes important to understand how to choose the number of 
+	dynamic modes to keep.
+This can be done by specifying a relative singular value cutoff such that all 
+	singular values smaller are set to zero and neglected, or by specifying the 
+	number of modes desired.
+If the snapshot series is denoted as $X$, and the DMD representation of $X$, 
+	$X_{DMD}$, theory states that the error in the Frobenius norm should be 
+	proportional to the magnitude of the largest truncated singular value, given 
+	by $\lVert X - X_{DMD} \rVert_F \sim \sigma_{K+1}$ (cite)
 This is code verification is demonstrated in \FI{recovery}.
 
 \bfg[h] \centering
@@ -803,20 +817,22 @@ This is code verification is demonstrated in \FI{recovery}.
 	\LFI{recovery}
 \efg
 
-In practical applications, only the number of modes corresponding to error on the order of the 
-	simulation error need be kept. 
-For example, if the numerical simulation has error on the order of $10^{-4}$, from the singular value 
-	spectrum above, only 5 dynamic modes are needed to maintain the same level of accuracy to the analytic solution. 
-For this reason, it is recommended that a singular value cutoff is used and set to satisfy this criteria. 
+In practical applications, only the number of modes corresponding to error on 
+	the order of the simulation error need be kept. 
+For example, if the numerical simulation has error on the order of $10^{-4}$, 
+	from the singular value spectrum above, only 5 dynamic modes are needed to 
+	maintain the same level of accuracy to the analytic solution. 
+For this reason, it is recommended that a singular value cutoff is used, 
+	and set, to satisfy this criteria. 
 
-To present a visual representation of DMD's ability to reproduce the solution it decomposes, the DMD 
-	solution and exact solutions are plotted against each other at 1/3, 1/2, and 2/3 simulation time, 
-	respectively in \FI{flx-plt}.
-For this case, the numerical solution is accurate to the exact solution to 4 digits in an $L^2$ sense. 
-This plot qualitatively shows both the accuracy of the DMD solution throughout the duration of the 
-	simulation and its accuracy at both times corresponding to a snapshot and times in between snapshots.
-More quantitatively, the interpolation error as a function  of time can be seen in \FI{interp-flux}.
-
+To present a visual representation of DMD's ability to reproduce the solution 
+	it decomposes, the DMD solution and exact solutions are plotted against each 
+	other at 1/3, 1/2, and 2/3 simulation time, respectively in \FI{flx-plt}.
+For this case, the numerical solution is accurate to the exact solution to 
+	4 digits in an $L^2$ sense. 
+This plot qualitatively shows both the accuracy of the DMD solution throughout 
+	the duration of the simulation and its accuracy at times corresponding to a 
+	snapshot and times in between snapshots.
 %
 \bfg[t] \centering
 	$
@@ -829,108 +845,154 @@ More quantitatively, the interpolation error as a function  of time can be seen 
 	\caption{Scalar group flux at 1/3, 1/2, and 2/3 simulation time}
 	\LFI{flx-plt}
 \efg
-
-%
+More quantitatively, the interpolation error can be seen in \FI{interp-flux}.
+In this plot, the DMD and analytic solutions are sampled on a more refined time 
+	grid to obtain errors both on and in between the snapshots used to build the
+	DMD solution. The DMD solution for the scalar group flux clearly does not 
+	lose accuracy when interpolating between snapshots.
+	%
 \bfg[!htb] \centering
 	\includegraphics[scale=0.5]{flux_interp_error.png}
-	\caption{Scalar group-flux DMD interpolation error}
+	\caption{Scalar group flux DMD interpolation error}
 	\LFI{interp-flux}
 \efg
 
-With the DMD code verified, it is now important to characterize its performance against the traditional 
-	method used, an $\alpha$-eigenfunction expansion.
-The most useful way to draw this comparison is to investigate the error of each method to the exact 
-	solution as a function of number of modes.
-For the $\alpha$-eigenfunction expansion, modes from the exact solution are simply added in 	
-	decreasing numerical order to emulate the convergence in an eigenvalue solver.
-To obtain the DMD-results, The SVD of the numerical data was simply truncated to the appropriate rank.
-A comparison of each method is shown in \FI{comp}. It is clear that DMD vastly outperforms the 
-	method of $\alpha$-eigenfunction expansions.
-Because eigenvalue solvers converge to eigenvalues in numerical order, many of the modes converged 
-	to initially are thermally dominated and have negligible 
- contribution to the solution. 
-This is what leads to the flat regions of the plot in \FI{comp}. 
-As is apparent, DMD rapidly converges to the error of the simulation to the exact solution.
-DMD extracts only the modes which are relevant to the physical system, and for this reason, yields a \	
-	more physically insightful and computationally efficient decomposition than its counterpart.
+Another property worth investigating is DMD's ability to extrapolate to times
+	beyond the data collection period.
+The results are presented in \FI{extrap-flux}.
+%
+\bfg[!htb] \centering
+	\includegraphics[scale=0.5]{flux_extrap_error.png}
+	\caption{Scalar group flux DMD extrapolation error}
+	\LFI{extrap-flux}
+\efg
+This simulation was carried out to 5 times the data collection period using the 
+	same time-step size.
+It is clear that DMD models this system to a similar degree of accuracy
+	even very long after the sampling period.
+For this case specifically, as time passes, all higher order modes become less
+	relevant to the solution.
+These results suggest that the DMD solution captured the dynamics of the longer
+	lived modes such that as the system settles into thos modes, DMD does as well.
+More information related to this is presented at a later point.
 
+With the DMD code verified, and its capabilities thoroughly investigated, it is 
+	now important to characterize its performance against the traditional 
+	method used, an $\alpha$-eigenfunction expansion.
+The most useful way to draw this comparison is to investigate the error of each 
+	method to the exact solution as a function of number of modes.
+For the $\alpha$-eigenfunction expansion, modes from the exact solution are 
+	simply added in decreasing numerical order to emulate the convergence in an 
+	eigenvalue solver.
+To obtain the DMD-results, the SVD of the numerical data was simply truncated 
+	to the appropriate rank, for the respective datapoint.
+A comparison of each method is shown in \FI{comp}. 
+%
 \bfg[!htb] \centering
 	\includegraphics[scale=0.5]{method_comparison.png}
 	\caption{Comparison of DMD to $\alpha$-eigenfunction expansions}
 	\LFI{comp}
 \efg
 
-To further showcase the ability of DMD to extract only relevant structures, the structures produced 
-	from DMD will be compared with those from the $\alpha$-eigenfunction expansion.
-Because no thermals exist in the system, the computed amplitudes of each thermal mode is zero, 
-	however, they must still be computed before relevant modes are obtained in a standard 
-	$\alpha$-eigenvalue solver.
-In addition to this, zero thermals actually appear in the epithermal and fast modes of the 
-	$\alpha$-eigenfunction solver due to the structure of the energy modes. 
-Becuase the $\alpha$-eigenfunction expansion information of the underlying structure of the physics,
-	it is expected that similar structures are seen in DMD results.
-To show this, the eigenvalues and eigenfunctions of the first 3 epithermal modes of the
-	$\alpha$-eigenfunction expansion and dynamic modes are compared in \FI{mode-comp}.
-The $\alpha$ modes are denoted as such, and the DMD modes denoted with $\omega$.
+It is clear that DMD vastly outperforms the method of $\alpha$-eigenfunction 
+expansions.
+Because eigenvalue solvers converge to eigenvalues in numerical order, many of 
+	the modes converged to initially are thermally dominated and have negligible 
+	contribution to the solution. 
+This is what leads to the flat regions of the exact solution curve.
+As is apparent, DMD rapidly converges to the error of the simulation to the 
+	exact solution in fewer than 10 modes.
+This is because the modes are guaranteed to be relevant to the solution over the
+	simulation time, unlike $\alpha$-eigenfunctions.
+If one were to increase the resolution in the numerical simulation, the minimum
+	error in the DMD solution would decrease, giving it an even greater efficiency
+	when compared to an $\alpha$-eigenvalue solver.
 
+To demonstrate the ability of DMD to extract relevant structures and produce
+	physical insights, the structures produced from DMD will be compared with 
+	those from the $\alpha$-eigenfunction expansion.
+Because no thermals exist in the system, the computed amplitudes of each 
+	thermal mode is zero, however, they must still be computed before any 
+	relevant modes are obtained in a standard $\alpha$-eigenvalue solver. 
+The exact solution is composed of many structures which describe the physics of
+	the underlying system. 
+For this reason, it is expected that the DMD modes bear so resemblence to them.
+To show this, the eigenvalues and eigenfunctions of the first 3 epithermal 
+	modes of the $\alpha$-eigenfunction expansion and dynamic modes are compared 
+	in \FI{modes}.
+The epithermal modes are used becuase no thermal modes exist in the system.
+The $\alpha$ modes are denoted as such, and the DMD modes denoted with $\omega$.
+Each mode is normalized to its $L^2$ norm, so that an accurate comparison can 
+	be made.
+	
 \bfg[!htb] \centering
 	$
 	\begin{array}{c c}
-	\includegraphics[scale=0.5]{alpha0-2.png}
+	\includegraphics[scale=0.5]{alpha0-2.png} &
 	\includegraphics[scale=0.5]{dmd0.png} \\
-	\includegraphics[scale=0.5]{alpha1-2.png}
+	\includegraphics[scale=0.5]{alpha1-2.png} &
 	\includegraphics[scale=0.5]{dmd1} \\
-	\includegraphics[scale=0.5]{alpha2-2.png}
+	\includegraphics[scale=0.5]{alpha2-2.png} &
 	\includegraphics[scale=0.5]{dmd2.png}
 	\end{array}
 	$
-	\LFI{mode-comp}
 	\caption{Comparision of $\alpha$-eigenfunctions to dynamic modes}
+	\LFI{modes}
 \efg
 
-Each mode is normalized to its $L^2$ norm and reflected across the x-axis, if necessary, so that
-	an accurate comparison can be made.
-The fundamental epithermal mode and the first dynamic mode are visibly indistinguishable, and have
-	identical decay constants.
-The shapes of each second mode appear to be seemingly identical, but the DMD decay constant
-	is slightly different.
-In the third comparison, the general shape is similar but there are wide deviations in the magnitudes 
-	of each component, respectively, and again, the eigenvalue further drifts away from that of the 
-	$\alpha$-eigenfunction.
-Because only a finite number of dynamic modes are used, it would not be feasible for the latter modes 
-	to be reproduced exactly because the dynamic modes have a greater ``information content'' per mode.
-One could say that, in a sense, some of the dynamic modes are a combination of several	
-	$\alpha$-eigenmodes.
-For instance, in a situation in which the simulation runs for several $1/e$ folding times for the
-	fundamental mode, the more accurately the slower $\alpha$-eigenmodes are recovered, because they 
-	have a greater contribution to the system than those which decayed away rapidly.
-It is clear that the DMD modes provide comparable, or better, physical insights into the system of 
-	interest than those obtained from an $\alpha$-eigenvalue computation.
+The fundamental epithermal mode and the first dynamic mode are visibly
+	indistinguishable, and have identical decay constants.
+The shapes of the second mode appear to be seemingly identical, and the DMD 
+	decay constant is slightly different.
+In the third mode, the general shape is similar but there are wide deviations 	
+	in the magnitudes of each component, respectively, and again, the eigenvalue 
+	further drifts away from that of the $\alpha$-eigenfunction.
+Because only a finite number of dynamic modes represent the system, it is not 
+	reasonable to reproduce more than a few modes accurately because the dynamic 
+	modes achieve the same level of accuracy as many of the $\alpha$-eigenmode.
+One could say that, in a sense, some of the dynamic modes are a combination of 	
+	several	$\alpha$-eigenmodes.
+
+These results give a clear indication of the applicability of DMD to these 
+	applications.
+It not only showed greater efficiency than an $\alpha$-eigenvalue computation, 
+	but also preserved the physical insights which can be gained.
+Further, the DMD solution produced accurate results both on and in between 
+	snapshots as well as far after the sampling period.
 
 \subsection{DMD with the Fission Rate}
-For real applications, the size of solution vector may become restrictively large. For example, if one 
-	considers neutron transport, rather than diffusion, increases the energy resolution,  performs a 2-
-	or 3-D computation, or any combination, the solution vector size would become exponentially larger. 
-For this reason, it would be  advantageous if DMD could be performed on some other  quantity of 	
-	interest, such as space-dependent reaction rates.
-For this particular application, the fission rate is what primarily governs the measurements of interest.
-What makes this inquiry particularly interesting is that in the case of performing DMD on the scalar 
-	group-flux, the analytic solution takes on the same form as that of the DMD solution, however, no 
-	such solution form exists for the fission rate.
-The following will discuss the results of performing DMD on the space-dependent fission rate.
+For real applications, the size of solution vector may become restrictively 
+large. 
+For example, if one considers neutron transport, rather than diffusion, 
+	increases the energy resolution,  performs a 2- or 3-D computation, or any 
+	combination, the solution vector size would become exponentially larger. 
+For this reason, it would be  advantageous to apply DMD on some other quantity 
+	of interest, such as space-dependent reaction rates.
+For this particular application, the fission rate is what primarily governs the 
+	measurements of interest.
+What makes this inquiry particularly interesting is the fact that no analytical
+	solution exists with the same form as a DMD solution, unlike the previous
+	example.
+The following will present the results from the application of DMD onto the 
+	fission rate computed from the scalar group flux simulation data.
 
-As before, the singular-value spectrum should be the first check to determine whether a low-rank structure exists within a given data-set. This is shown in \FI{sv-fis}.
+As before, the singular-value spectrum should be the first check to determine 
+	whether a low-rank structure exists within a given data-set. 
+This is shown in \FI{sv-fis}.
 %
 \bfg[!htb] \centering
 	\includegraphics[scale=0.5]{singularValueSpectrum_fis.png}
 	\caption{Singular value spectrum for the fission rate}
 	\LFI{sv-fis}
 \efg
-Similarly to that for the scalar group-flux, the singular value spectrum, does in fact indicate that a 
-	low-rank structure exists within the space-dependent fission rate snapshot series.
-Just as before, with the scalar group-flux, the Frobenius norm as a function of cutoff value and rank
-	converges to machine precision, as shown in \FI{conv-fis}.
-%
+Similarly to that for the scalar group flux, the singular value spectrum, 
+	indicates that a low-rank structure exists within the space-dependent fission 
+	rate snapshot series.
+The error in the Frobenius norm of the DMD solution to the data which produced 
+	it converges to machine precision as theory dictates.
+This is shown in \FI{conv-fis}, and shows that DMD can decompose the fission
+	rate as accurately as it did the scalar group flux.
+
 \bfg[!htb] \centering
 	$
 	\begin{array}{c c}
@@ -938,14 +1000,14 @@ Just as before, with the scalar group-flux, the Frobenius norm as a function of 
 	\includegraphics[scale=0.5]{rankStudy_fis.png}
 	\end{array}
 	$
-	\LFI{conv-fis}
 	\caption{Fission rate DMD convergence}
+	\LFI{conv-fis}
 \efg
-In practice, only about 8 to 10 dynamic modes need be used to produce retain the same level of accuracy to the analytic solution ($\sim 10^{-4}$) as the numerical solution. 
 
-For visualization purposes, the DMD and analytic fission rates are plotted against each other at 3
-	distinctive times, 1/3, 1/2, and 2/3 of the simulation time, to depict the solution at times both on
-	an in between times corresponding to the snapshots used in DMD.
+For visualization purposes, the DMD and analytic fission rates are plotted 
+	against each other at 3 distinctive times, 1/3, 1/2, and 2/3 of the 
+	simulation time, to depict the solution at times both on an in between times 
+	corresponding to the snapshots used in DMD.
 This is shown in \FI{fis-ex}.
 %
 \bfg[!htb] \centering
@@ -959,10 +1021,55 @@ This is shown in \FI{fis-ex}.
 	\caption{Fission rate at 1/3, 1/2. and 2/3 simulation time}
 	\LFI{fis-ex}
 \efg
+The interpolative capabilities are explored in \FI{interp-fis}, and very 
+similar results are obtained.
 
-This is 
+%
+\bfg[!htb] \centering
+	\includegraphics[scale=0.5]{fission_interp_error.png}
+	\caption{Fission rate DMD interpolation error}
+	\LFI{interp-fis}
+\efg
+
+Lastly, the extrapolative capabilities are explored in \FI{extrap-fis}. 
+%
+\bfg[t] \centering
+	\includegraphics[scale=0.5]{fission_extrap_error.png}
+	\caption{Fission rate DMD extapolation error}
+	\LFI{extrap-fis}
+\efg
+This obviously is a very different picture than that from the scalar group flux
+	extrapolation error plot.
+The reason for this is believed to be because the fission rate does not have 
+	a solution of the same form as the DMD solution, and therefore, as was the
+	case before, the long-term behaviors cannot be sufficiently captured.
+The reader should take note that the increase in error only increased by 2
+	orders of magnitude after 4 times the sampling period.
+
 
 \section{Conclusions and Recommendations for Future Work}
+An initial study to characterize the perfomance of DMD on fast, subcritical, 
+	metal systems was performed on both the scalar group flux and the fission 
+	rate and to compare it to a truncated $\alpha$-eigenfunction expansion.
+It was shown that not only can DMD be applied to these problems successfully,
+	but that DMD shows far superior efficiency to other methods while retaining 
+	the same level of physical insight.
+Unlike in an $\alpha$-eigenfunction expansion, where many thermal modes with 
+	zero-amplitudes must be computed before contibuting modes, dynamic modes, 
+	because they are data driven, are guaranteed to be relevant to the solution.
+In fact, no thermal neutrons are present in any dynamic modes.
+The continuous DMD solution did not lose accuracy when interpolating between 
+	snapshots, and proved to maintain accuracy for near-future state predictions.
+
+Much work needs to be done to fully characterize DMD's applicability for these
+	applications.
+This work needs to be expanded to characterize non-linearities.
+This is anticipated to be successful because the most notable applications of
+	DMD are on turbulent fluid flow, which is nonlinear.
+Further, work should be done to characterize its application to dynamic
+	geometries and on coupled systems.
+Lastly, the exploration of different flavors of the DMD algorithm should be 
+	explored in order to find the type best suited to this application space.
 
 %\begin{thebibliography}{99}
 
