@@ -1,0 +1,37 @@
+\begin{thebibliography}{99}
+
+\bibitem{dmd2016}
+J.~N. Kutz, S.~L. Brunton, B.~W. Brunton, and J.~L. Proctor.
+\newblock {\em Dynamic Mode Decomposition: Data Driven Modeling for Complex
+  Systems}.
+\newblock Society for Industrial and Applied Mathematics Philadelphia,
+  Philadelphia, U.S.A, 2016.
+  
+\bibitem{schmid2010}
+P.~J. Schmid.
+\newblock Dynamic mode decomposition of numerical and experimental data.
+\newblock {\em Journal of Fluid Mechanics}, 656:5--28, 2010.
+
+\bibitem{jovanovic2012low}
+M.~Jovanovic, P.~Schmid, and J.~Nichols.
+\newblock Low-rank and sparse dynamic mode decomposition.
+\newblock {\em Center for Turbulence Research Annual Research Briefs},
+  2012:139--152, 2012.
+  
+\bibitem{abdo2018}
+M.~Abdo, R.~Elzohery, and J.~Roberts.
+\newblock Data-driven surrogate model to predict isotopic composition using
+  dynamic mode decomposition.
+\newblock In {\em PHYSOR 2018: Reactor Physics Paving the Way Towards More
+  Efficient Systems}, volume~N, pages 1781--1792, Cancún, Mexico, April 2018.
+  
+\bibitem{rm}
+R.~McClarren.
+\newblock Calculating time eigenvalues of the neutron transport equation with dynamic mode decomposition.
+\newblock https://arxiv.org/abs/1810.10678, submitted to {\em Nuclear Science and Engineering}, 2018.
+
+\bibitem{em} J.~Edwards, J.~Morel, D.~Knoll.
+\newblock Nonlinear variants of the TR/BDF2 method for thermal radiative diffusion.
+\newblock {\it Journal of Computational Physics}, 230:1198--1214, 2011.
+
+\end{thebibliography}
