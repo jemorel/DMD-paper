@@ -6,5 +6,7 @@
 *.bak
 *.gz
 *.swp
+.DS_Store
+*.blg
 
 !*/figures/*.pdf
