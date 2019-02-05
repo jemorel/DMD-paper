@@ -275,7 +275,7 @@ While such modeling can certainly be done with a time-dependent transport code,
 	problems quickly and compute sensitivities economically. 
 One method of developing a reduced-order model is a truncated
 	$\alpha$-eigenfunction expansion. 
-To the author's knowledge, no proof of the incompleteness of the alpha 
+To the authors' knowledge, no proof of the incompleteness of the alpha 
 	eigenfunctions exists. 
 It seems, however, that because of the singular nature of the uncollided and    
 	first collided flux \cite{bondarenko1996}$^,$\cite{larsen1975} , the $\alpha$-eigenfunctions likely do not form a 
@@ -841,7 +841,7 @@ In this section numerical results are presented which characterize the
 The DMD solution presented in this section is derived from data produced by the 
 	numerical model discussed above for a 5 cm sphere over a 10 ns simulation 
 	time discretized into 500 spatial cells and 30 time-steps.
-Seperate sections will describe the application of DMD on both the scalar 
+Separate sections will describe the application of DMD on both the scalar 
 	group flux and the fission rate.
 Each section will present the singular value spectrum for the simulation data,
 	show the convergence of the DMD solution to the simulation data in the 
@@ -950,7 +950,8 @@ It is clear that DMD models this system to a similar degree of accuracy
 For this case specifically, as time passes, all higher order modes become less
 	relevant to the solution.
 These results suggest that the DMD solution captured the dynamics of the longer
-	lived modes such that as the system settles into thos modes, DMD does as well.
+	lived modes such that as the system settles into those modes, DMD does as 
+	well.
 More information related to this is presented at a later point.
 
 With the DMD code verified, and its capabilities thoroughly investigated, it is 
@@ -990,18 +991,39 @@ To demonstrate the ability of DMD to extract relevant structures and produce
 	those from the $\alpha$-eigenfunction expansion.
 Because no thermals exist in the system, the computed amplitudes of each 
 	thermal mode is zero, however, they must still be computed before any 
-	relevant modes are obtained in a standard $\alpha$-eigenvalue solver. 
+	relevant modes are obtained in a standard $\alpha$-eigenvalue solver.
+The first 3 thermal modes are shown below in \FI{thermal-modes}.
+These are compared to the first 3 dynamic modes to highlight the ability of 
+	DMD to produce relevant modes to the system - modes which contain no
+	thermal neutrons.
+The $\alpha$ modes are denoted as such, and the DMD modes denoted with $\omega$.
+Each mode is normalized to its $L^2$ norm, so that an accurate comparison can 
+	be made.
+
+\bfg[!htb] \centering
+	$
+	\begin{array}{c c}
+	\includegraphics[scale=0.5]{alpha0-3.png}
+	\includegraphics[scale=0.5]{dmd0.png} \\
+	\includegraphics[scale=0.5]{alpha1-3.png}
+	\includegraphics[scale=0.5]{dmd1.png} \\
+	\end{array}
+	$
+	\includegraphics[scale=0.5]{alpha2-3.png}
+	\includegraphics[scale=0.5]{dmd2.png}
+	\caption{Comparison of first 3 thermal and dynamic modes.}
+	\LFI{thermal-modes}
+\efg
+
 The exact solution is composed of many structures which describe the physics of
 	the underlying system. 
 For this reason, it is expected that the DMD modes bear so resemblence to them.
 To show this, the eigenvalues and eigenfunctions of the first 3 epithermal 
 	modes of the $\alpha$-eigenfunction expansion and dynamic modes are compared 
 	in \FI{modes}.
-The epithermal modes are used becuase no thermal modes exist in the system.
-The $\alpha$ modes are denoted as such, and the DMD modes denoted with $\omega$.
-Each mode is normalized to its $L^2$ norm, so that an accurate comparison can 
-	be made.
-	
+Because no thermal modes contribute to the system, the epithermal modes, in
+	fact, set the decay rates for this problem.
+
 \bfg[!htb] \centering
 	$
 	\begin{array}{c c}
@@ -1017,16 +1039,18 @@ Each mode is normalized to its $L^2$ norm, so that an accurate comparison can
 	\LFI{modes}
 \efg
 
-The fundamental epithermal mode and the first dynamic mode are visibly
-	indistinguishable, and have identical decay constants.
-The shapes of the second mode appear to be seemingly identical, and the DMD 
+In contrast to the previous comparison, the fundamental epithermal mode and the 
+	first dynamic mode are visibly indistinguishable, and have identical decay 
+	constants.
+The shapes of the second mode appear to be nearly identical, and the DMD 
 	decay constant is slightly different.
 In the third mode, the general shape is similar but there are wide deviations 	
 	in the magnitudes of each component, respectively, and again, the eigenvalue 
 	further drifts away from that of the $\alpha$-eigenfunction.
 Because only a finite number of dynamic modes represent the system, it is not 
 	reasonable to reproduce more than a few modes accurately because the dynamic 
-	modes achieve the same level of accuracy as many of the $\alpha$-eigenmode.
+	modes achieve the same level of accuracy as a much larger number of the 
+	$\alpha$-eigenmodes.
 One could say that, in a sense, some of the dynamic modes are a combination of 	
 	several	$\alpha$-eigenmodes.
 
@@ -1034,8 +1058,8 @@ These results give a clear indication of the applicability of DMD to these
 	applications.
 It not only showed greater efficiency than an $\alpha$-eigenvalue computation, 
 	but also preserved the physical insights which can be gained.
-Further, the DMD solution produced accurate results both on and in between 
-	snapshots as well as far after the sampling period.
+Further, the DMD solution produced accurate results both at snapshot samplinf 
+times and in between them, as well as far after the sampling period.
 
 \subsection{DMD with the Fission Rate}
 For real applications, the size of solution vector may become restrictively 
@@ -1131,22 +1155,31 @@ An initial study to characterize the perfomance of DMD on fast, subcritical,
 It was shown that not only can DMD be applied to these problems successfully,
 	but that DMD shows far superior efficiency to other methods while retaining 
 	the same level of physical insight.
-Unlike in an $\alpha$-eigenfunction expansion, where many thermal modes with 
+Unlike an $\alpha$-eigenfunction expansion, where many thermal modes with 
 	zero-amplitudes must be computed before contibuting modes, dynamic modes, 
 	because they are data driven, are guaranteed to be relevant to the solution.
 In fact, no thermal neutrons are present in any dynamic modes.
 The continuous DMD solution did not lose accuracy when interpolating between 
-	snapshots, and proved to maintain accuracy for near-future state predictions.
+	snapshots, and proved to maintain accuracy beyong the last sampling time.
+It should be stressed that the extrapolative capabilites of DMD are expected to 
+	be problem dependent.
 
+The ultimate goal for this work is to develop an emulator uses DMD solutions
+	evaluated at various points in a physical parameter space to accurately and 
+	efficiently interpolate within that parameter space.
 Much work needs to be done to fully characterize DMD's applicability for these
-	applications.
-This work needs to be expanded to characterize non-linearities.
-This is anticipated to be successful because the most notable applications of
-	DMD are on turbulent fluid flow, which is nonlinear.
+	applications, before this is possible, however.
+This work needs to be expanded to characterize the performance of DMD
+	on non-linear systems.
+This is anticipated to have success because the most notable applications of
+	DMD in the literature are on non-linear turbulent fluid flow 
+	\cite{dmd2016}$^,$\cite{schmid2010} .
 Further, work should be done to characterize its application to dynamic
-	geometries and on coupled systems.
+	geometries and coupled systems.
 Lastly, the exploration of different flavors of the DMD algorithm should be 
-	explored in order to find the type best suited to this application space.
+	explored in order to find the best tailored algorithm for problems within 
+	this application space.
+
 
 \setlength{\baselineskip}{12pt}
 \bibliographystyle{abbrv}
