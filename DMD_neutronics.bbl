@@ -34,4 +34,19 @@ R.~McClarren.
 \newblock Nonlinear variants of the TR/BDF2 method for thermal radiative diffusion.
 \newblock {\it Journal of Computational Physics}, 230:1198--1214, 2011.
 
+\bibitem{bondarenko1996}
+Anatoly~N.~Bondarenko.
+\newblock The structure of the fundamental solution of the time-independent transport equation.
+\newblock In {\em Journal of Mathematical Analysis and Applications}, volume~221, pages~430-451, 
+	October 1996.
+
+\bibitem{larsen1975}
+Edward~W.~Larsen.
+\newblock Solution of neutron transport problems in L1.
+\newblock In {\em Communications on Pure and Applied Mathematics}, volume~XXVIII, pages~729-746, 1975.
+
+\bibitem{jorgens1958}
+Konrad~Jorgens.
+\newblock An asymptotic expanion in the theory of neutron transport.
+\newblock In {\em Communications on Pure and Applied Mathematics}, volume~XI, pages~219-242, 1958.
 \end{thebibliography}
