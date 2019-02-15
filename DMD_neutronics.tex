@@ -756,7 +756,7 @@ This expansion is then propegated forward in time with the
 
 \section{Discretization of the Diffusion Equations}
 In practice,  $\alpha$-eigenvalue calculations for this application are quite 
-	computationally expensive, and  further, in most cases, analytic solutions is 
+	computationally expensive, and  further, in most cases, analytic solutions are 
 	not available. 
 For this reason, it is desireable to develop a numerical method so that the 
 	accuracy of DMD can be characterized in a realistic way and compared against 
@@ -861,7 +861,7 @@ Because singular values are related to the eigenvalues matrix it decomposes,
 	information about the dominant time-eigenvalues during the duration of the 
 	simulation.
 The singular value spectrum of  $\bm{X}^{N-1}_1$ is presented below in 
-	\FI{sv-spec}, and shows that this condition is, in fact, met.
+	\FI{sv-spec}, and shows that this condition is met.
 
 \bfg[h] \centering
 	\includegraphics[scale=0.5]{singularValueSpectrum_flux.png}
@@ -869,7 +869,7 @@ The singular value spectrum of  $\bm{X}^{N-1}_1$ is presented below in
 	\LFI{sv-spec}
 \efg
 
-In implementation of DMD, one often may want to use fewer modes than the $N-1$, 
+When implementing the DMD method, one often may want to use fewer modes than the $N-1$, 
 	the maximum number of modes obtained without any truncation. 
 Because very small singular values correspond to very little dynamics 
 	information, it becomes important to understand how to choose the number of 
@@ -989,8 +989,8 @@ If one were to increase the resolution in the numerical simulation, the minimum
 To demonstrate the ability of DMD to extract relevant structures and produce
 	physical insights, the structures produced from DMD will be compared with 
 	those from the $\alpha$-eigenfunction expansion.
-Because no thermals exist in the system, the computed amplitudes of each 
-	thermal mode is zero, however, they must still be computed before any 
+Because no thermals exist in the system, the computed amplitudes of the 
+	thermal modes are zero, however, they must still be computed before any 
 	relevant modes are obtained in a standard $\alpha$-eigenvalue solver.
 The first 3 thermal modes are shown below in \FI{thermal-modes}.
 These are compared to the first 3 dynamic modes to highlight the ability of 
@@ -1017,7 +1017,8 @@ Each mode is normalized to its $L^2$ norm, so that an accurate comparison can
 
 The exact solution is composed of many structures which describe the physics of
 	the underlying system. 
-For this reason, it is expected that the DMD modes bear so resemblence to them.
+For this reason, it is expected that the DMD modes bear so resemblence to them in shape and 
+time-scale.
 To show this, the eigenvalues and eigenfunctions of the first 3 epithermal 
 	modes of the $\alpha$-eigenfunction expansion and dynamic modes are compared 
 	in \FI{modes}.
@@ -1067,7 +1068,7 @@ large.
 For example, if one considers neutron transport, rather than diffusion, 
 	increases the energy resolution,  performs a 2- or 3-D computation, or any 
 	combination, the solution vector size would become exponentially larger. 
-For this reason, it would be  advantageous to apply DMD on some other quantity 
+For this reason, it would be  advantageous to apply DMD on some other lower dimensionsal quantity 
 	of interest, such as space-dependent reaction rates.
 For this particular application, the fission rate is what primarily governs the 
 	measurements of interest.
