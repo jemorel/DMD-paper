@@ -1,5 +1,5 @@
-FILE = dmd_neutronics
-
+FILE = dmd_neutronics_formatted
+BIBFILE = bibliography
 FIGURES = 
 
 SOURCES = $(FILE).tex 
@@ -16,7 +16,7 @@ $(FILE).pdf: $(SOURCES)
 
 #  pdflatex $(FILE)
   
-#  bibtex $(FILE)
+#  bibtex $(BIBFILE)
   
 	pdflatex $(FILE)
 	

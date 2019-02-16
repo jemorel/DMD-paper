@@ -539,7 +539,7 @@ The singular value spectrum of  $\bm{X}^{N-1}_1$ is presented below in \FI{sv-sp
 When implementing the DMD method, one often may want to use fewer modes than the $N-1$, the maximum number of modes obtained without any truncation.  
 Because very small singular values correspond to very little dynamics information, it becomes important to understand how to choose the number of dynamic modes to keep.  
 This can be done by specifying a relative singular value cutoff such that all singular values smaller are set to zero and neglected, or by specifying the number of modes desired.  
-If the snapshot series is denoted as $X$, and the DMD representation of $X$, $X_{DMD}$, theory states that the error in the Frobenius norm should be proportional to the magnitude of the largest truncated singular value, given by $\lVert X - X_{DMD} \rVert_F \sim \sigma_{K+1}$ \cite{kutz2016dynamicl}.  
+If the snapshot series is denoted as $X$, and the DMD representation of $X$, $X_{DMD}$, theory states that the error in the Frobenius norm should be proportional to the magnitude of the largest truncated singular value, given by $\lVert X - X_{DMD} \rVert_F \sim \sigma_{K+1}$ \cite{kutz2016dynamic}.  
 This is code verification is demonstrated in \FI{recovery}.  
 \bfg[h] \centering
 	$
