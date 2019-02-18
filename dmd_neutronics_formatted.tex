@@ -512,7 +512,11 @@ The time derivative term containing the scalar flux at ther next half-time step 
 Overall, this method is second order accurate and was verified against the analytic solution.  
 \FI{2ord} shows the error as a function of number of spatiotemporal grid halvings, where a slope of 2 is observed.
 \bfg[h] \centering
+<<<<<<< HEAD
 	\includegraphics[scale=0.5]{figures/method_convergence.jpg}
+=======
+	\includegraphics[scale=0.5]{figures/method_convergence.png}
+>>>>>>> 0eb8c4bea8cc0ebddf9ed8c898113846f1b4025a
 	\caption{Convergence of the numerical solution to the analytical}
 	\LFI{2ord}
 \efg
@@ -530,7 +534,11 @@ Because singular values are related to the eigenvalues matrix it decomposes, the
 The singular value spectrum of  $\bm{X}^{N-1}_1$ is presented below in \FI{sv-spec}, and shows that this condition is met.  
 
 \bfg[h] \centering
+<<<<<<< HEAD
 	\includegraphics[scale=0.5]{figures/singularValueSpectrum_flux.jpg}
+=======
+	\includegraphics[scale=0.5]{figures/singularValueSpectrum_flux.png}
+>>>>>>> 0eb8c4bea8cc0ebddf9ed8c898113846f1b4025a
 	\caption{Singlar value spectrum of numerical snapshot series}
 	\LFI{sv-spec}
 \efg
@@ -543,8 +551,13 @@ This is code verification is demonstrated in \FI{recovery}.
 \bfg[h] \centering
 	$
 	\begin{array}{cc}
+<<<<<<< HEAD
 		\includegraphics[scale=0.5]{figures/cutoffStudy_flux.jpg} &
 		\includegraphics[scale=0.5]{figures/rankStudy_flux.jpg}
+=======
+		\includegraphics[scale=0.5]{figures/cutoffStudy_flux.png} &
+		\includegraphics[scale=0.5]{figures/rankStudy_flux.png}
+>>>>>>> 0eb8c4bea8cc0ebddf9ed8c898113846f1b4025a
 	\end{array}
 	$
 	\caption{DMD solution recovery study}
@@ -560,11 +573,19 @@ This plot qualitatively shows both the accuracy of the DMD solution throughout t
 \bfg[t] \centering
 	$
 	\begin{array}{cc}
+<<<<<<< HEAD
 		\includegraphics[scale=0.45]{figures/groupFlux_t3ns.jpg} &
 		\includegraphics[scale=0.45]{figures/groupFlux_t5ns.jpg} \\
 	\end{array}
 	$
 	\includegraphics[scale=0.45]{figures/groupFlux_t6ns.jpg}
+=======
+		\includegraphics[scale=0.45]{figures/groupFlux_t3ns.png} &
+		\includegraphics[scale=0.45]{figures/groupFlux_t5ns.png} \\
+	\end{array}
+	$
+	\includegraphics[scale=0.45]{figures/groupFlux_t6ns.png}
+>>>>>>> 0eb8c4bea8cc0ebddf9ed8c898113846f1b4025a
 	\caption{Scalar group flux at 1/3, 1/2, and 2/3 simulation time}
 	\LFI{flx-plt}
 \efg
@@ -573,14 +594,22 @@ More quantitatively, the interpolation error can be seen in \FI{interp-flux}.
 In this plot, the DMD and analytic solutions are sampled on a more refined time grid to obtain errors both on and in between the snapshots used to build the DMD solution.  
 The DMD solution for the scalar group flux clearly does not lose accuracy when interpolating between snapshots.  
 \bfg[!htb] \centering
+<<<<<<< HEAD
 	\includegraphics[scale=0.5]{figures/flux_interp_error.jpg}
+=======
+	\includegraphics[scale=0.5]{figures/flux_interp_error.png}
+>>>>>>> 0eb8c4bea8cc0ebddf9ed8c898113846f1b4025a
 	\caption{Scalar group flux DMD interpolation error}
 	\LFI{interp-flux}
 \efg
 Another property worth investigating is DMD's ability to extrapolate to times beyond the data collection period.  
 These results are presented in \FI{extrap-flux}.  
 \bfg[!htb] \centering
+<<<<<<< HEAD
 	\includegraphics[scale=0.5]{figures/flux_extrap_error.jpg}
+=======
+	\includegraphics[scale=0.5]{figures/flux_extrap_error.png}
+>>>>>>> 0eb8c4bea8cc0ebddf9ed8c898113846f1b4025a
 	\caption{Scalar group flux DMD extrapolation error}
 	\LFI{extrap-flux}
 \efg
@@ -596,7 +625,11 @@ For the $\alpha$-eigenfunction expansion, modes from the exact solution are simp
 To obtain the DMD-results, the SVD of the numerical data was simply truncated to the appropriate rank, for the respective datapoint.  
 A comparison of each method is shown in \FI{comp}.  
 \bfg[!htb] \centering
+<<<<<<< HEAD
 \includegraphics[scale=0.5]{figures/method_comparison.jpg}
+=======
+\includegraphics[scale=0.5]{figures/method_comparison.png}
+>>>>>>> 0eb8c4bea8cc0ebddf9ed8c898113846f1b4025a
 	\caption{Comparison of DMD to $\alpha$-eigenfunction expansions}
 	\LFI{comp}
 \efg
@@ -617,12 +650,21 @@ Each mode is normalized to its $L^2$ norm, so that an accurate comparison can be
 \bfg[!htb] \centering
 	$
 	\begin{array}{c c}
+<<<<<<< HEAD
 		\includegraphics[scale=0.5]{figures/alpha0-3.jpg}
 		\includegraphics[scale=0.5]{figures/dmd0.jpg} \\
 		\includegraphics[scale=0.5]{figures/alpha1-3.jpg}
 		\includegraphics[scale=0.5]{figures/dmd1.jpg} \\
 		\includegraphics[scale=0.5]{figures/alpha2-3.jpg}
 		\includegraphics[scale=0.5]{figures/dmd2.jpg}
+=======
+		\includegraphics[scale=0.5]{figures/alpha0-3.png}
+		\includegraphics[scale=0.5]{figures/dmd0.png} \\
+		\includegraphics[scale=0.5]{figures/alpha1-3.png}
+		\includegraphics[scale=0.5]{figures/dmd1.png} \\
+		\includegraphics[scale=0.5]{figures/alpha2-3.png}
+		\includegraphics[scale=0.5]{figures/dmd2.png}
+>>>>>>> 0eb8c4bea8cc0ebddf9ed8c898113846f1b4025a
 	\end{array}
 	$
 	\caption{Comparison of first 3 thermal and dynamic modes.}
@@ -636,12 +678,21 @@ Because no thermal modes contribute to the system, the epithermal modes, set the
 \bfg[!htb] \centering
 	$
 	\begin{array}{c c}
+<<<<<<< HEAD
 		\includegraphics[scale=0.5]{figures/alpha0-2.jpg} &
 		\includegraphics[scale=0.5]{figures/dmd0.jpg} \\
 		\includegraphics[scale=0.5]{figures/alpha1-2.jpg} &
 		\includegraphics[scale=0.5]{figures/dmd1} \\
 		\includegraphics[scale=0.5]{figures/alpha2-2.jpg} &
 		\includegraphics[scale=0.5]{figures/dmd2.jpg}
+=======
+		\includegraphics[scale=0.5]{figures/alpha0-2.png} &
+		\includegraphics[scale=0.5]{figures/dmd0.png} \\
+		\includegraphics[scale=0.5]{figures/alpha1-2.png} &
+		\includegraphics[scale=0.5]{figures/dmd1} \\
+		\includegraphics[scale=0.5]{figures/alpha2-2.png} &
+		\includegraphics[scale=0.5]{figures/dmd2.png}
+>>>>>>> 0eb8c4bea8cc0ebddf9ed8c898113846f1b4025a
 	\end{array}
 	$
 	\caption{Comparision of $\alpha$-eigenfunctions to dynamic modes}
@@ -668,7 +719,11 @@ The following will present the results from the application of DMD onto the fiss
 As before, the singular-value spectrum should be the first check to determine whether a low-rank structure exists within a given data-set.  
 This is shown in \FI{sv-fis}.
 \bfg[!htb] \centering
+<<<<<<< HEAD
 	\includegraphics[scale=0.5]{figures/singularValueSpectrum_fis.jpg}
+=======
+	\includegraphics[scale=0.5]{figures/singularValueSpectrum_fis.png}
+>>>>>>> 0eb8c4bea8cc0ebddf9ed8c898113846f1b4025a
 	\caption{Singular value spectrum for the fission rate}
 	\LFI{sv-fis}
 \efg
@@ -678,8 +733,13 @@ This is shown in \FI{conv-fis}, and shows that DMD can decompose the fission rat
 \bfg[!htb] \centering
 	$
 	\begin{array}{c c}
+<<<<<<< HEAD
 		\includegraphics[scale=0.5]{figures/cutoffStudy_fis.jpg}
 		\includegraphics[scale=0.5]{figures/rankStudy_fis.jpg}
+=======
+		\includegraphics[scale=0.5]{figures/cutoffStudy_fis.png}
+		\includegraphics[scale=0.5]{figures/rankStudy_fis.png}
+>>>>>>> 0eb8c4bea8cc0ebddf9ed8c898113846f1b4025a
 	\end{array}
 	$
 	\caption{Fission rate DMD convergence}
@@ -691,24 +751,40 @@ This is shown in \FI{fis-ex}.
 \bfg[!htb] \centering
 	$
 	\begin{array}{c c}
+<<<<<<< HEAD
 		\includegraphics[scale=0.5]{figures/fissionRate_t3ns.jpg}
 		\includegraphics[scale=0.5]{figures/fissionRate_t5ns.jpg}
 	\end{array}
 	$
 	\includegraphics[scale=0.5]{figures/fissionRate_t6ns.jpg}
+=======
+		\includegraphics[scale=0.5]{figures/fissionRate_t3ns.png}
+		\includegraphics[scale=0.5]{figures/fissionRate_t5ns.png}
+	\end{array}
+	$
+	\includegraphics[scale=0.5]{figures/fissionRate_t6ns.png}
+>>>>>>> 0eb8c4bea8cc0ebddf9ed8c898113846f1b4025a
 	\caption{Fission rate at 1/3, 1/2. and 2/3 simulation time}
 	\LFI{fis-ex}
 \efg
 
 The interpolative capabilities are explored in \FI{interp-fis}, and analogous results are obtained.
 \bfg[!htb] \centering
+<<<<<<< HEAD
 	\includegraphics[scale=0.5]{figures/fission_interp_error.jpg}
+=======
+	\includegraphics[scale=0.5]{figures/fission_interp_error.png}
+>>>>>>> 0eb8c4bea8cc0ebddf9ed8c898113846f1b4025a
 	\caption{Fission rate DMD interpolation error}
 	\LFI{interp-fis}
 \efg
 Lastly, the extrapolative capabilities are explored in \FI{extrap-fis}. 
 \bfg[t] \centering
+<<<<<<< HEAD
 	\includegraphics[scale=0.5]{figures/fission_extrap_error.jpg}
+=======
+	\includegraphics[scale=0.5]{figures/fission_extrap_error.png}
+>>>>>>> 0eb8c4bea8cc0ebddf9ed8c898113846f1b4025a
 	\caption{Fission rate DMD extapolation error}
 	\LFI{extrap-fis}
 \efg
