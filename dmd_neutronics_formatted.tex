@@ -530,7 +530,7 @@ Because singular values are related to the eigenvalues matrix it decomposes, the
 The singular value spectrum of  $\bm{X}^{N-1}_1$ is presented below in \FI{sv-spec}, and shows that this condition is met.  
 
 \bfg[h] \centering
-	\includegraphics[scale=0.5]{figures/singularValueSpectrum_flux.jpg}
+	\includegraphics[scale=0.5]{figures/flux_singularValueSpectrum.jpg}
 	\caption{Singlar value spectrum of numerical snapshot series}
 	\LFI{sv-spec}
 \efg
@@ -543,8 +543,8 @@ This is code verification is demonstrated in \FI{recovery}.
 \bfg[h] \centering
 	$
 	\begin{array}{cc}
-		\includegraphics[scale=0.5]{figures/cutoffStudy_flux.jpg} &
-		\includegraphics[scale=0.5]{figures/rankStudy_flux.jpg}
+		\includegraphics[scale=0.5]{figures/flux_cutoffStudy.jpg} &
+		\includegraphics[scale=0.5]{figures/flux_rankStudy.jpg}
 	\end{array}
 	$
 	\caption{DMD solution recovery study}
@@ -560,11 +560,11 @@ This plot qualitatively shows both the accuracy of the DMD solution throughout t
 \bfg[t] \centering
 	$
 	\begin{array}{cc}
-		\includegraphics[scale=0.45]{figures/groupFlux_t3ns.jpg} &
-		\includegraphics[scale=0.45]{figures/groupFlux_t5ns.jpg} \\
+		\includegraphics[scale=0.45]{figures/flux_t3ns.jpg} &
+		\includegraphics[scale=0.45]{figures/flux_t5ns.jpg} \\
 	\end{array}
 	$
-	\includegraphics[scale=0.45]{figures/groupFlux_t6ns.jpg}
+	\includegraphics[scale=0.45]{figures/flux_t6ns.jpg}
 	\caption{Scalar group flux at 1/3, 1/2, and 2/3 simulation time}
 	\LFI{flx-plt}
 \efg
@@ -668,7 +668,7 @@ The following will present the results from the application of DMD onto the fiss
 As before, the singular-value spectrum should be the first check to determine whether a low-rank structure exists within a given data-set.  
 This is shown in \FI{sv-fis}.
 \bfg[!htb] \centering
-	\includegraphics[scale=0.5]{figures/singularValueSpectrum_fis.jpg}
+	\includegraphics[scale=0.5]{figures/fis_singularValueSpectrum.jpg}
 	\caption{Singular value spectrum for the fission rate}
 	\LFI{sv-fis}
 \efg
@@ -678,8 +678,8 @@ This is shown in \FI{conv-fis}, and shows that DMD can decompose the fission rat
 \bfg[!htb] \centering
 	$
 	\begin{array}{c c}
-		\includegraphics[scale=0.5]{figures/cutoffStudy_fis.jpg}
-		\includegraphics[scale=0.5]{figures/rankStudy_fis.jpg}
+		\includegraphics[scale=0.5]{figures/fis_cutoffStudy.jpg}
+		\includegraphics[scale=0.5]{figures/fis_rankStudy.jpg}
 	\end{array}
 	$
 	\caption{Fission rate DMD convergence}
@@ -691,24 +691,24 @@ This is shown in \FI{fis-ex}.
 \bfg[!htb] \centering
 	$
 	\begin{array}{c c}
-		\includegraphics[scale=0.5]{figures/fissionRate_t3ns.jpg}
-		\includegraphics[scale=0.5]{figures/fissionRate_t5ns.jpg}
+		\includegraphics[scale=0.5]{figures/fis_t3ns.jpg}
+		\includegraphics[scale=0.5]{figures/fis_t5ns.jpg}
 	\end{array}
 	$
-	\includegraphics[scale=0.5]{figures/fissionRate_t6ns.jpg}
+	\includegraphics[scale=0.5]{figures/fis_t6ns.jpg}
 	\caption{Fission rate at 1/3, 1/2. and 2/3 simulation time}
 	\LFI{fis-ex}
 \efg
 
 The interpolative capabilities are explored in \FI{interp-fis}, and analogous results are obtained.
 \bfg[!htb] \centering
-	\includegraphics[scale=0.5]{figures/fission_interp_error.jpg}
+	\includegraphics[scale=0.5]{figures/fis_interp_error.jpg}
 	\caption{Fission rate DMD interpolation error}
 	\LFI{interp-fis}
 \efg
 Lastly, the extrapolative capabilities are explored in \FI{extrap-fis}. 
 \bfg[t] \centering
-	\includegraphics[scale=0.5]{figures/fission_extrap_error.jpg}
+	\includegraphics[scale=0.5]{figures/fis_extrap_error.jpg}
 	\caption{Fission rate DMD extapolation error}
 	\LFI{extrap-fis}
 \efg
