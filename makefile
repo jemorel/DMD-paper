@@ -1,4 +1,4 @@
-FILE = dmd_nse_rev0
+FILE = NSE19-11_rev1
 
 FIGURES = 
 
@@ -28,4 +28,4 @@ clean:
 	-rm -rf $(FILE).dvi $(FILE).ps $(FILE).pdf \
 	        $(FILE).log *.aux texput.log \
 		$(FILE).fff $(FILE).toc *.tex.flc \
-                $(FILE).lof $(FILE).lot 
+                $(FILE).lof $(FILE).lot *.bbl *.blg *.out
