@@ -1,4 +1,4 @@
-FILE = NSE19-11_rev1
+FILE = NSE19-11RevisedMarkup
 
 FIGURES = 
 
@@ -26,6 +26,6 @@ $(FILE).pdf: $(SOURCES)
 	
 clean:
 	-rm -rf $(FILE).dvi $(FILE).ps $(FILE).pdf \
-	        $(FILE).log *.aux texput.log \
+	        $(FILE).log *.aux texput.log *.gz \
 		$(FILE).fff $(FILE).toc *.tex.flc \
                 $(FILE).lof $(FILE).lot *.bbl *.blg *.out
