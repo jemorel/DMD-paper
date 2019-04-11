@@ -1,7 +1,7 @@
 % Document template for ANS Journals
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL NSE19-11OldClean.tex       Wed Apr 10 07:34:06 2019
-%DIF ADD NSE19-11RevisedClean.tex   Wed Apr 10 08:16:03 2019
+%DIF DEL NSE19-11OldClean.tex       Wed Apr 10 11:28:23 2019
+%DIF ADD NSE19-11RevisedClean.tex   Thu Apr 11 12:41:08 2019
 % Options: footnoteAtEnd - Places all footnotes at the end of document
 %               Usage: \documentclass[footnoteAtEnd]{style/nseJournal}
 \documentclass{style/nseJournal}
@@ -581,10 +581,10 @@ If the snapshot series is denoted as \DIFdelbegin \DIFdel{$X$}\DIFdelend \DIFadd
 \DIFdelbegin \DIFdel{$X$, $X_{DMD}$}\DIFdelend \DIFaddbegin \DIFadd{$\mX$, $\mX_{DMD}$}\DIFaddend , theory states that the error in the Frobenius norm should 
 be proportional to the magnitude of the largest truncated singular value, given 
 by \DIFdelbegin \DIFdel{$\lVert X - X_{DMD} \rVert_F \sim \sigma_{K+1}$ \mbox{%DIFAUXCMD
-\cite{kutz2016dynamic}}%DIFAUXCMD
+\cite{kutz2016dynamic}}\hspace{0pt}%DIFAUXCMD
 .  
 This is }\DIFdelend \DIFaddbegin \DIFadd{$\lVert \mX - \mX_{DMD} \rVert_F \sim \sigma_{K+1}$ \mbox{%DIFAUXCMD
-\cite{kutz2016dynamic}}%DIFAUXCMD
+\cite{kutz2016dynamic}}\hspace{0pt}%DIFAUXCMD
 .  
 The }\DIFaddend code verification is demonstrated in \FI{recovery}.  
 \bfg[h] \centering
@@ -781,7 +781,7 @@ magnitude after 4 times the sampling period.
 \DIFaddbegin \DIFadd{While extrapolation errors are likely to be problem dependent, this shows that 
 DMD is likely able to extrapolate in time to predict nearby future states, as 
 suggested by Kutz \mbox{%DIFAUXCMD
-\cite{kutz2016dynamic}}%DIFAUXCMD
+\cite{kutz2016dynamic}}\hspace{0pt}%DIFAUXCMD
 .
 }\DIFaddend 
 
@@ -791,7 +791,7 @@ metal systems was performed on both the scalar group flux and the fission
 rate\DIFdelbegin \DIFdel{and to compare it to }\DIFdelend \DIFaddbegin \DIFadd{.  
 This method was then compared to }\DIFaddend a truncated $\alpha$-eigenfunction expansion.  
 It was shown \DIFdelbegin \DIFdel{that not only can DMD be applied to these problemssuccessfully}\DIFdelend \DIFaddbegin \DIFadd{not only that DMD is both applicable for these problems}\DIFaddend , but that 
-\DIFdelbegin \DIFdel{DMD shows far superior efficiency to other methods }\DIFdelend \DIFaddbegin \DIFadd{it has superior efficiency }\DIFaddend while retaining the same level of physical insight.  
+\DIFdelbegin \DIFdel{DMD shows far }\DIFdelend \DIFaddbegin \DIFadd{it has }\DIFaddend superior efficiency to \DIFdelbegin \DIFdel{other methods }\DIFdelend \DIFaddbegin \DIFadd{$\alpha$-eigenfunction expansions }\DIFaddend while retaining the same level of physical insight.  
 \DIFdelbegin \DIFdel{Unlike an }\DIFdelend \DIFaddbegin \DIFadd{The }\DIFaddend $\alpha$-eigenfunction expansion \DIFdelbegin \DIFdel{, where many thermal modeswith zero-amplitudes must be computed before contibuting modes , dynamic modes, because they are data driven, are guaranteed to 
 be relevant to }\DIFdelend \DIFaddbegin \DIFadd{is based purely on physics, not the 
 specific problem, and thus, has no means of filtering out thermal modes. 
